@@ -1,0 +1,21 @@
+{
+  "$schema": "./schemas/anote.schema.json",
+  "notesDir": "sample",
+  "newNote": {
+    "defaultName": "Untitled"
+  },
+  "assets": {
+    "dirSuffix": ".assets"
+  },
+  "preview": {
+    "theme": "auto",
+    "pollMs": 2000,
+    "port": 0
+  },
+  "studio": {
+    "enabled": true
+  },
+  "mcp": {
+    "enabled": true
+  }
+}

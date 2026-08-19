@@ -1,0 +1,91 @@
+name: Bug report
+description: Something in ANote behaves wrongly
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please don't report a security issue here — use
+        [a private advisory](https://github.com/ddev94/anote/security/advisories/new)
+        instead.
+
+        If a note was written wrongly, or a `.md` came back changed, the note
+        itself is the most useful thing you can attach.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you did, what happened, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Right-click a `.md` → Open as Note
+        2. Type `/` and insert a table
+        3. …
+    validations:
+      required: true
+
+  - type: dropdown
+    id: part
+    attributes:
+      label: Which part
+      options:
+        - The block editor (a .note file)
+        - Open as Note (a .md file)
+        - Drawings, video, audio or attachments
+        - Preview — to the side, or in a browser
+        - The studio
+        - The MCP server / agent editing
+        - Configuration (anote.config.json)
+        - Something else / not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options:
+        - macOS
+        - Linux
+        - Windows
+    validations:
+      required: true
+
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where is the workspace
+      description: >
+        The preview and the studio serve a loopback port, so a remote workspace
+        reaches them differently from a local one.
+      options:
+        - Local
+        - Remote SSH
+        - WSL
+        - Dev container
+        - Codespaces
+    validations:
+      required: true
+
+  - type: input
+    id: versions
+    attributes:
+      label: ANote and VS Code versions
+      placeholder: "ANote 0.1.0, VS Code 1.101.0 — or the commit you built from"
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Output and console
+      description: >
+        Anything printed in the **ANote** output channel, and in the developer
+        tools console (Help → Toggle Developer Tools) if the editor itself
+        misbehaved. Your `anote.config.json` too, if you have one.
+      render: shell

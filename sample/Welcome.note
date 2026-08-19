@@ -1,0 +1,1236 @@
+[
+ {
+  "id": "e773dca2-3328-4efb-a66a-c5bb00e9e01f",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Welcome to ANote",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "144bfdc2-06e3-4ec8-96f9-c34a6693088a",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "You are looking at a file. ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "sample/Welcome.note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " is a JSON array of blocks and this is a block editor over it — so ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "⌘S",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " saves it, ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "git diff",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " shows what you wrote, and renaming it is the Explorer's job rather than a menu in here.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "60c9c6ff-57d9-43a9-9192-2ea0cafb3d8f",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Type ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " on the empty line below to see everything this editor can put in a note. That is the whole tutorial — the rest of this folder is a tour.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "452d3fbb-9c59-40b5-845f-9a7c05e75a8d",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [],
+  "children": []
+ },
+ {
+  "id": "037dd6dc-a0e9-450c-ae4b-edddecb73d21",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Four things to try, in this order",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "80e4ebc2-609f-4db6-ad67-d3ca0a9a5a7e",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Type ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " above and pick anything. The menu is the whole feature list.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "14056afe-a65f-4964-885c-797b9b11d61f",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Hover the left edge of this line, grab the handle and drag it above the heading. The ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "⋮⋮",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " button beside it holds colour, alignment and ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "Delete",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ".",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c2020737-45d1-47e3-b264-0646f726fa3c",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Drop a picture from the Finder anywhere in this note. It is written into ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "Welcome.note.assets/",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and the note keeps the path, not the bytes.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "abbe30cd-97c8-4859-8cda-0b83407c1a69",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "⇧⌘P",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " → ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "ANote: Open Preview to the Side",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ". The same note, as a finished page.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "73aa4bfa-5ad6-44a8-a1c2-72db6cc14f50",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "One file, four surfaces",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "1456b40b-ad8b-4dfc-923b-0ed75a411de4",
+  "type": "drawing",
+  "props": {
+   "drawingId": "b7f1e0c2-9d34-4a55-8c71-2f0e6ab41d90"
+  },
+  "children": []
+ },
+ {
+  "id": "3cd40391-a5f0-45c4-bef7-f7ce684a6e03",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Nothing sits in the middle. The editor, the previews, the studio and an agent all read the same ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": ".note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " off disk — which is why uninstalling this extension leaves you holding your notes rather than an export button.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "62b2caf9-db5c-41b8-ac8f-d385b601ddb8",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The tour",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "3a2c3f86-154a-4a60-bb31-34c21a54410d",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    300,
+    null
+   ],
+   "headerRows": 1,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Open this",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "To see",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Tour/1. Blocks.note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "every block the ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "/",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " menu makes, and the keys that beat the menu",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Tour/2. Pictures and drawings.note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a picture, a diagram, a clip, an attachment — and where each is filed",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Tour/3. Previews and the studio.note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the note as a page in Chrome, and as an editor in a browser tab",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Tour/4. Notes an agent can edit.note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the MCP server: seven tools, and what they refuse",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Markdown.md",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the same editor over plain markdown — ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "Open as Note",
+         "styles": {
+          "bold": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "spec.note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a note holding a block this build has no spec for, and what it does about it",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Examples/",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "two notes doing actual work, rather than describing themselves",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "9eaefdf4-64f1-4a07-8ceb-ca05e517c0df",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "What is on disk",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "407af783-f264-4cef-a6bf-eb9916263840",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    230,
+    null
+   ],
+   "headerRows": 1,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "The file",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "What it holds",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Welcome.note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the blocks, as JSON — one array, in the order you see them",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Welcome.note.assets/",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "every picture, clip, drawing and attachment this note points at",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "anote.config.json",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "where notes live, what the assets folder is called, the preview's palette and port",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "fae8ad05-d5f3-4a4a-85e0-17b117e9ecdf",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Both names are derived from the note's own, so a note and its pictures are moved, committed and deleted together — by whatever you already use for files.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "bbe7068e-bafd-472d-8ac1-1df632789bc6",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Before you call it yours",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f2d721d8-8c21-4a25-971a-e619a714b0cd",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": true
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Open a note (done — you are in one)",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "831f5d1e-e5b3-4a39-be40-b08bea2d4188",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Write a line, press ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "⌘S",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", then look at ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "git diff",
+    "styles": {
+     "code": true
+    }
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "3b93cba1-d2c7-4c69-a663-ef8fe293281e",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "ANote: Copy Preview Link",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and paste it into Chrome",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "569ada85-8ee9-4e91-ae43-7ea27fef1220",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Pin the preview light while the editor stays dark — ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "ANote: Switch Preview Theme",
+    "styles": {
+     "bold": true
+    }
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "8df5ec5d-93e9-4306-90f2-67e004be8c2c",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Ask the editor's agent to add a heading to this note, and watch it appear",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "afbe4072-fd46-4564-98c7-5768cdc9635f",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "What is not here yet",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d876b3bc-e708-4329-af75-a27b641c486c",
+  "type": "toggleListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "⌘F",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " inside a note",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "1cd2fd2b-739b-40ae-b6f0-666f6d00a73f",
+    "type": "paragraph",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "Find belongs to the surface it runs on, and a webview has none. Workspace search still finds the note — it is searching the JSON, so it matches the words and not the formatting.",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ },
+ {
+  "id": "bad3be78-cee5-4813-b1b8-1e881b4c8915",
+  "type": "toggleListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Templates",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "2fdb41d9-2f50-42dc-a3d4-9b0539eeaf34",
+    "type": "paragraph",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "The honest version in an extension is a folder of ",
+      "styles": {}
+     },
+     {
+      "type": "text",
+      "text": ".note",
+      "styles": {
+       "code": true
+      }
+     },
+     {
+      "type": "text",
+      "text": " files and a ",
+      "styles": {}
+     },
+     {
+      "type": "text",
+      "text": "New note from template…",
+      "styles": {
+       "bold": true
+      }
+     },
+     {
+      "type": "text",
+      "text": " command — not a second listing of notes to keep in step with the first.",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ },
+ {
+  "id": "889ae6db-0052-4986-8866-9f13b8e8896f",
+  "type": "toggleListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Rename, move and delete in the studio",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "a528c516-71c6-4fcc-b699-ddef890a07e3",
+    "type": "paragraph",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "Those are the Explorer's everywhere else, deliberately. In a browser tab there is no Explorer to fall back on, which makes this the first thing anybody will miss there.",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ },
+ {
+  "id": "24888d71-85dd-46b8-b5ed-a92a32a65312",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [],
+  "children": []
+ },
+ {
+  "id": "6c2cac0f-ddec-4e76-90d3-de91e57c26a8",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Everything above is a block. Drag one, delete one, type over one — this note is yours now.",
+    "styles": {
+     "italic": true
+    }
+   }
+  ],
+  "children": []
+ }
+]

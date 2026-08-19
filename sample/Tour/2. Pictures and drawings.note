@@ -1,0 +1,597 @@
+[
+ {
+  "id": "f6fb795d-8cd5-4ed7-90e3-8296ef5bf5e8",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Pictures, drawings and clips",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d2164302-5616-45bb-9c0a-1339d339d06c",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Five files sit beside this note, and the note names all five. None of them is inside it: a ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": ".note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " stays a document you can read in a diff.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "ce524a03-3d04-4e51-aa6a-761d018e385d",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A picture",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a1abbd2a-d6c7-4bc6-b035-bd6dfdfb82c6",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Dropped, pasted, or chosen from the ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/image",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " block. Drag its edge to set the width.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "897e6434-2b8f-4811-9168-756b2e18f4d0",
+  "type": "image",
+  "props": {
+   "textAlignment": "left",
+   "backgroundColor": "default",
+   "name": "beside-the-note.png",
+   "url": "2. Pictures and drawings.note.assets/7d5b3c90-41ea-4f66-b2d1-58c9e0f7a314.png",
+   "caption": "Dragged in from the Finder. The caption is part of the block.",
+   "showPreview": true,
+   "previewWidth": 620
+  },
+  "children": []
+ },
+ {
+  "id": "96070442-61c8-41a1-8187-58e2b50479de",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Where a dropped file goes",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "e28dfcf7-7c6b-405d-b7a7-557fdf72ceed",
+  "type": "drawing",
+  "props": {
+   "drawingId": "3c9a5f18-6b27-4e0d-9a83-1de74c05b6f2"
+  },
+  "children": []
+ },
+ {
+  "id": "759d51af-f13b-4c09-a097-4632c611528f",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The path written down is relative to the note, so it is the same string on every machine and in every clone — nothing here depends on where the workspace happens to live.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "2fd76dfc-91b8-4108-8a3a-fbb81b4cf342",
+  "type": "codeBlock",
+  "props": {
+   "language": "text"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Tour/\n  2. Pictures and drawings.note              ← the blocks\n  2. Pictures and drawings.note.assets/\n    7d5b3c90….png                            ← the picture above\n    3c9a5f18….excalidraw                     ← a drawing's scene\n    3c9a5f18….svg                            ← the picture exported from it\n    9a4e17b6….mp4                            ← the clip\n    c1f8b6d4….mp3                            ← the sound\n    5e0d92a7….pdf                            ← the attachment",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "114f1c96-10c8-4d10-ba08-a5388916f2f4",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A drawing",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c44810e2-afcd-4df6-811f-dac91ab889bf",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "/drawing",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " opens Excalidraw in a dialog over the note. The block itself holds only an id — the scene is ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "<id>.excalidraw",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " beside the note and the picture exported from it is ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "<id>.svg",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", so a note with five diagrams is not five copies of Excalidraw's JSON inside the file this editor rewrites as you type.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "3f8b2ab8-7a79-44e2-be0e-9d5dc4ec1b70",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The exported SVG is what both previews draw, because neither can run Excalidraw: one is a webview with no canvas, the other is a Node process. Open a drawing once and save it, and the export is there.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "93ef3446-97f4-4580-8003-6a1f477ff55a",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Click the diagram above — or the ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "Edit",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " button under it — and the canvas opens on the real scene. None of these is a screenshot.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "01146210-b2a1-4624-9b0a-ed3d888330af",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A clip",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "77105c26-03a2-46d7-bb77-c736783d86c5",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "/video",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/audio",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ". Both play in the note, in the preview, and in the studio.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "727d7108-c20b-414a-b3e2-92a7536a89f7",
+  "type": "video",
+  "props": {
+   "textAlignment": "left",
+   "backgroundColor": "default",
+   "name": "the-slash-menu.mp4",
+   "url": "2. Pictures and drawings.note.assets/9a4e17b6-0c58-4d31-b7f9-e26305a8dc44.mp4",
+   "caption": "Six seconds of the block menu, drawn rather than recorded.",
+   "showPreview": true,
+   "previewWidth": 620
+  },
+  "children": []
+ },
+ {
+  "id": "1d0ed31d-a87b-4249-a24f-c59b48f95069",
+  "type": "audio",
+  "props": {
+   "backgroundColor": "default",
+   "name": "four-notes.mp3",
+   "url": "2. Pictures and drawings.note.assets/c1f8b6d4-2e73-4a90-8f52-6b0d94e17c3b.mp3",
+   "caption": "An audio block is a player and a name.",
+   "showPreview": true
+  },
+  "children": []
+ },
+ {
+  "id": "10841f7b-c9a5-4c88-8b81-83f04bb9bda9",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A player that draws but will not play is almost always a content type — ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "media-src",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " in the webview's policy, and the extension's own table of what a ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": ".mov",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " is served as.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "58a55559-1b59-4aa7-9fec-37a021f1f73f",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "An attachment",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "25789e50-8a92-48a9-803f-c876abcea7a9",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "/file",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " is for whatever is not a picture and not a clip: a PDF, an archive, a CSV.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "3e0c6ab3-0be2-4c25-8e83-add1b88d604e",
+  "type": "file",
+  "props": {
+   "backgroundColor": "default",
+   "name": "anote-cheat-sheet.pdf",
+   "url": "2. Pictures and drawings.note.assets/5e0d92a7-8b14-4c63-9f28-71ad3e6b04f5.pdf",
+   "caption": "The slash menu and the keys, on one page."
+  },
+  "children": []
+ },
+ {
+  "id": "5dfdacf2-aacd-416d-b8b7-70f999504eea",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Click it in the preview and it opens; in the editor it is a link to the file beside the note.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a6b095e2-68d6-433e-add7-00bb2e93f8dc",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "What this buys",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "4f961a10-ecd1-449b-8a2c-7ee0fbd95e71",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "git add .",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " takes the note and its pictures, in one commit.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "5a6e0dee-85cd-4d58-bed2-f955c6cd1d83",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Moving the note in the Explorer moves the folder — VS Code offers to update the paths.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f8d7044b-a88c-44b6-b7e7-2225c2ac2579",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Deleting the note deletes what only it referred to, with nothing left in a database.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "b7a73eed-5bde-45fd-817c-bc4ae1dd44a7",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A note mailed as a preview page is one HTML file: the drawings are inlined into it.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d77fa9d5-bb22-468c-8a46-b7055ff3df30",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [],
+  "children": []
+ },
+ {
+  "id": "4523a648-b95b-420c-b4dd-b1c65ddd696e",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The one cost, stated plainly: two notes cannot share a picture without one of them keeping a path into the other's folder. Duplicate it, or point both at a third place you keep.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ }
+]

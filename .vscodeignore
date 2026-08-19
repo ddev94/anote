@@ -1,0 +1,48 @@
+# What does *not* go in the .vsix.
+#
+# vsce ships everything it is not told to leave out, and this repo is mostly
+# things nobody installing the extension needs: the sources both bundles are
+# built from, the tests, the sample workspace `F5` opens, and — the one that
+# matters — `node_modules`, which is 500MB of BlockNote and Excalidraw that
+# esbuild has already bundled into `dist/`.
+
+.vscode/**
+.bun-cache/**
+.bun-tmp/**
+node_modules/**
+
+src/**
+test/**
+sample/**
+
+esbuild.mjs
+tsconfig.json
+bun.lock
+bunfig.toml
+probe.local.*
+
+# The MCP server's own config, which names a path inside this repo and means
+# nothing from inside an installed extension. `dist/mcp.js` itself ships — see
+# the README.
+.mcp.json
+.gitignore
+
+# This repo's *own* `anote.config.json` — it configures the extension for the
+# workspace this repo is, and shipping it inside the .vsix would put a config
+# file where nothing reads one. `schemas/` does ship: `contributes.jsonValidation`
+# points at it, so a user's own `anote.config.json` completes and describes
+# itself in their editor.
+anote.config.json
+
+# Source maps are 37MB of the 47MB in `dist/`, and they map back to sources this
+# package does not carry. Anyone debugging this has the repo.
+**/*.map
+
+# `media/` ships — the Marketplace tile and the two `.note` file icons are read
+# from inside the .vsix. The script that draws them is not.
+media/icon.py
+media/__pycache__/**
+
+# `docs/` is the design write-up. The README links to it, but vsce rewrites that
+# link to the repository, so a copy inside the .vsix is weight nobody reads.
+docs/**

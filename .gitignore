@@ -1,0 +1,9 @@
+node_modules
+dist
+.bun-cache
+.bun-tmp
+*.vsix
+
+# `sample/` is the demo — the notes and the files beside them are both part of it,
+# so nothing under it is ignored. A picture dropped in during a run turns up in
+# `git status` like any other file, which is the point: it is one.

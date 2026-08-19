@@ -1,0 +1,774 @@
+[
+ {
+  "id": "5e2ae44a-6d74-4ace-a409-fd822b44fc75",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A block with no spec",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a5eb2326-bef2-46e9-83a4-31a41dd96337",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A note is a file, so a note can hold a block this build has never heard of: one written by a later version, by the desktop app, or by an extension of the editor that is not installed here. This note holds two of them, and everything else in it is ordinary.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "07591b51-0e9a-4dc7-984b-591eca073331",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Below is a two-column layout, from ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "@blocknote/xl-multi-column",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ":",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "5fdbcc4d-1e1f-4f0f-ba8b-8e9c356bfe48",
+  "type": "columnList",
+  "props": {},
+  "children": [
+   {
+    "id": "e9aedb4c-47ce-4dcf-9345-8d3a512efdbc",
+    "type": "column",
+    "props": {
+     "width": 1
+    },
+    "children": [
+     {
+      "id": "e51e763e-dd19-407f-b958-e7872046a65c",
+      "type": "heading",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left",
+       "level": 3,
+       "isToggleable": false
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "The left column",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "e636137f-32e7-4f10-89b3-cc35dbabfddb",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Written somewhere that had the spec for columns.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "15622623-5c18-4112-9aac-7e6212ea3abd",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Its paragraphs are ordinary blocks",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "77659a31-cecc-4aec-8a78-af6e48438ccd",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Its wrapper is not",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "71d248e6-0920-4e38-a33c-c51cbf8498cd",
+    "type": "column",
+    "props": {
+     "width": 1
+    },
+    "children": [
+     {
+      "id": "5c2e6394-3c60-4325-ae46-035d2cb8ae2c",
+      "type": "heading",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left",
+       "level": 3,
+       "isToggleable": false
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "The right column",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "a5f3f8c8-6d9a-43f9-85ae-27e38273f196",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Which is the interesting part: the words are all readable, and the thing holding them is not drawable.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "5961851f-175a-4913-90a5-61c490dc581c",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "In this editor that block is drawn as a read-only listing of its own JSON, saying which type it stands for. The other blocks in this note are an ordinary document: you can type in them, drag them and save.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "21182085-88c5-4bbc-a483-6148b7ae5658",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "What the alternative was",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a0de611b-ffde-46b0-a552-3214962f9513",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The editor's own answer to an unknown type is ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "throw Error(\"node type columnList not found in schema\")",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — from inside construction, during render. React unmounts and the panel is ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "white",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", with the reason in a console nobody opened.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c502da91-39cf-4ec2-adde-6768be6e679b",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The first fix was to check the document and refuse it with a readable message. That is honest, and still wrong: a note is not one block. Refusing the file would hold every ordinary heading, table and list in it hostage to one wrapper.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "7daa2127-7e57-4af3-a5f6-9763649ecb05",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "So the unknown blocks are folded on the way in and unfolded on the way out — the whole block, its id, props and children in their original key order, written back byte for byte. Opening this note costs no undo step and no dirty dot.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "74972817-423b-4e84-84c2-1812dffe39a0",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "It is read-only on purpose",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c89582dc-6bfc-446f-b2a7-6403b0f0b89f",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Hand-editing JSON inside a block editor means a typo silently rewriting a block nothing here understands — and the placeholder is the only copy of it. What you can do instead:",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "7f326a22-eea7-4492-b2d0-5a39110e1a49",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Move it",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " or ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "delete it",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", which are decisions rather than accidents.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "385aebe1-7ebd-4eb8-bc2d-d5765ee38382",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Replace it",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " with the MCP server, which addresses blocks by id and never has to draw one.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c17b9a9d-1939-40f6-a35a-19560a2daf54",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Open it where it came from",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — the app or version that has the spec draws it properly.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "136d0b4f-75f8-438a-9e2f-1028e9090179",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The same fact, enforced four times",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "05707901-e360-41d9-bd8b-da904e8bea84",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    220,
+    null
+   ],
+   "headerRows": 1,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Where",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "What it does about it",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "The editor",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "folds it, and the placeholder names the type it stands for",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "read_note",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " / ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "list_notes",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "warn at the top of the answer and on the line, and say how to fix it",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "The write tools",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "refuse to ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "introduce",
+         "styles": {
+          "bold": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " a type the note did not already have",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "The server's instructions",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "name the whole list of drawable types up front",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "1c12618e-3b44-4313-a18c-16ae7293bf61",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "One more, from below the surface: a second, smaller layout, to show that folding is per block and not per file.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "53ec324d-e892-428f-9ff0-55c97b750502",
+  "type": "columnList",
+  "props": {},
+  "children": [
+   {
+    "id": "84e8f72e-9766-414f-ac3d-cdd603e29385",
+    "type": "column",
+    "props": {
+     "width": 1
+    },
+    "children": [
+     {
+      "id": "db849efb-0785-452e-af34-e538b06258e6",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Still unknown.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "dedd5a61-f71d-455e-ab6c-4a1e17888676",
+    "type": "column",
+    "props": {
+     "width": 1
+    },
+    "children": [
+     {
+      "id": "35f69c10-8888-4977-9d99-be0b2776567c",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Still readable.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "b2ce160b-1a1d-4534-8964-b2699abbb22e",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "And an ordinary paragraph, after both of them, to type in.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ }
+]

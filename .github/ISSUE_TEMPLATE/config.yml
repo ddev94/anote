@@ -1,0 +1,10 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/ddev94/anote/security/advisories/new
+    about: >
+      Please report privately rather than in a public issue — especially anything
+      about the loopback server, its tokens or the MCP tools.
+  - name: Question or idea
+    url: https://github.com/ddev94/anote/discussions
+    about: For anything that isn't a bug report or a concrete feature request.

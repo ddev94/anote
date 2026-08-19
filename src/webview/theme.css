@@ -1,0 +1,840 @@
+/* Excalidraw's own stylesheet, imported here rather than from `drawing-editor.tsx`.
+   Its package exports `./index.css` under only `development` and `production`
+   conditions — no `import`, no `default` — so neither TypeScript nor esbuild
+   resolves that specifier from a `.ts` file. From CSS it is one `alias` entry in
+   `esbuild.mjs`, the same one BlockNote's own stylesheets need, and the canvas
+   never flashes unstyled because the CSS is there before it is.
+
+   `@import` first, which the CSS grammar requires. */
+@import "@excalidraw/excalidraw/index.css";
+
+/*
+ * The editor, wearing VS Code's colours.
+ *
+ * A port of the app's `note-editor.css`, with the right-hand sides swapped: there
+ * the `--bn-*` variables point at the studio's own tokens, here they point at the
+ * `--vscode-*` variables every webview is given. That is the whole of the theming
+ * — one palette, following whatever theme the editor is on, with nothing in here
+ * that has to know which one that is. It also means a note looks like the file
+ * next to it rather than like a web page someone embedded.
+ *
+ * Both selectors, and that is the reason the attribute one is here: BlockNote sets
+ * its own values twice, on `.bn-root` and again on
+ * `.bn-root[data-color-scheme="dark"]`, and the second is a class *and* an
+ * attribute. A plain `.bn-root` override loses on specificity no matter how late
+ * this file is imported.
+ */
+.bn-root,
+.bn-root[data-color-scheme] {
+  --bn-colors-editor-text: var(--vscode-editor-foreground);
+  /* Transparent rather than the editor's background: the tab already paints it,
+     and a second opaque layer is what makes an embedded editor read as a card
+     floating in the tab. */
+  --bn-colors-editor-background: transparent;
+
+  --bn-colors-menu-text: var(
+    --vscode-menu-foreground,
+    var(--vscode-foreground)
+  );
+  --bn-colors-menu-background: var(
+    --vscode-menu-background,
+    var(--vscode-editorWidget-background)
+  );
+  --bn-colors-tooltip-text: var(--vscode-editorHoverWidget-foreground);
+  --bn-colors-tooltip-background: var(--vscode-editorHoverWidget-background);
+
+  --bn-colors-hovered-text: var(--vscode-list-hoverForeground, inherit);
+  --bn-colors-hovered-background: var(--vscode-list-hoverBackground);
+  --bn-colors-selected-text: var(--vscode-list-activeSelectionForeground);
+  --bn-colors-selected-background: var(--vscode-list-activeSelectionBackground);
+
+  --bn-colors-disabled-text: var(--vscode-disabledForeground);
+  --bn-colors-disabled-background: transparent;
+
+  --bn-colors-border: var(--vscode-widget-border, var(--vscode-panel-border));
+  --bn-colors-shadow: var(--vscode-widget-shadow);
+
+  /* The drag handle and the `+` beside a block. BlockNote spends a border token
+     on them, and a border is meant to be barely there — these are controls meant
+     to be found. */
+  --bn-colors-side-menu: var(--vscode-descriptionForeground);
+
+  --bn-font-family: var(--note-font);
+  --bn-border-radius: 4px;
+}
+
+/*
+ * The note's type scale — the one thing this file and `host/note-html.ts` have to
+ * agree about to the number.
+ *
+ * They are two stylesheets and they cannot be one: this is a file bundled into the
+ * webview, that is a `<style>` built as a string in Node, and the preview opened
+ * in a real browser can read neither this file nor a `--vscode-*` variable. So the
+ * scale is written twice, and the rule is that **it is written twice with the same
+ * numbers** — a note that reads one way in the editor and another in the preview
+ * beside it is one note pretending to be two documents.
+ *
+ * **The scale is the document's, not the editor's**, which is the decision behind
+ * `16px` sitting where `var(--vscode-font-size)` used to. That variable is VS
+ * Code's *UI* size: the note body drew at 13px in the editor and 16px everywhere
+ * else, the headings crossed over (BlockNote's h1 is 3em against the preview's
+ * 2em, its h3 is 1.3em against 1.17em), and no amount of scaling reconciles two
+ * curves that cross. A note is a document, and the surface that cannot follow a
+ * setting — a page in Chrome — is the one the other two have to meet. It is what
+ * VS Code's own markdown preview does with its own font size.
+ *
+ * Keep in step with `page()` in `src/host/note-html.ts`.
+ */
+:root {
+  --note-font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --note-font-size: 16px;
+  --note-line-height: 1.5;
+  /* Between one block and the next: 2px of padding on each, so 4px. Tight, and
+     that is the point — the air in a note this shape is spent above the headings
+     instead, which is what makes a page read as sections rather than as a column
+     of evenly spaced lines. */
+  --note-block-space: 2px;
+  /* Above a heading and below it. Generous above, tight below: a heading belongs
+     to what follows it.
+
+     Three values because the space scales with the level — an h1 opens a document
+     and an h3 opens a paragraph. `rem` rather than `em` for the one reason the
+     preview cannot argue with: there the margin sits on the `<h1>` itself, where
+     `em` would be the heading's own 1.875, and here it sits on `.bn-block-outer`,
+     where the font size is still the body's. The same `em` would mean two
+     different gaps. `rem` means the same number on both sides. */
+  --note-heading-space: 1rem;
+  --note-heading-space-1: 2rem;
+  --note-heading-space-2: 1.4rem;
+  --note-heading-space-after: 0.25rem;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--vscode-editor-foreground);
+  font-family: var(--note-font);
+  font-size: var(--note-font-size);
+  line-height: var(--note-line-height);
+}
+
+#root,
+.bn-container {
+  height: 100%;
+}
+
+/* The note fills the tab, so clicking well below the last line still puts the
+   caret in it — on an empty note that is almost all of it. */
+.bn-editor {
+  min-height: 100%;
+  outline: none;
+  /* BlockNote's own inline padding is sized for a document page at full window
+     width; a note here is a tab that can be split in half. The bottom is deep
+     enough to click into past the last line. */
+  padding: 1.5rem clamp(1.5rem, 4%, 3.5rem) 6rem;
+  caret-color: var(--vscode-editorCursor-foreground);
+}
+
+/* A measure, because a note is read as prose and a line running the width of a
+   maximised window is harder to track back from than it is to read. Wider than a
+   book's on purpose: a note holds tables and code blocks too, and those are read
+   across rather than down. */
+.bn-editor > .bn-block-group {
+  max-width: 60rem;
+  margin-inline: auto;
+}
+
+/*
+ * The rest of the scale, as the overrides BlockNote's own defaults need to meet
+ * the preview. Every number here has a twin in `page()` — see the block at the
+ * top of this file.
+ */
+
+/* BlockNote sets 1.5 on the block, which wins over the one on `body`. */
+.bn-block-outer {
+  line-height: var(--note-line-height);
+}
+
+/* Its own is `3px 0`, which is 6px between blocks where the preview has 12. */
+.bn-block-content {
+  padding: var(--note-block-space) 0;
+}
+
+/*
+ * The heading scale.
+ *
+ * BlockNote's is 3 / 2 / 1.3 / 1 / .9 / .8 em and the preview's was the browser's
+ * 2 / 1.5 / 1.17 / 1 / .83 / .67 — two curves that cross at h3, so the editor's h1
+ * was larger than the preview's while its h3 was smaller. This is the one both
+ * ends now use. It is spent through `--level`, which is the variable BlockNote's
+ * own rule reads.
+ *
+ * **Level 1 is on the bare selector, and that is not tidiness.** BlockNote renders a
+ * prop that equals its default as *no attribute at all* — `renderHTML: props[name]
+ * === default ? {} : { [data-name]: … }` — and a heading's default level is 1. So
+ * `[data-level="1"]` matched nothing, that rule was dead, and an h1 kept BlockNote's
+ * own 3em while the preview beside it drew the same heading at 2.2: the one
+ * difference in the scale a reader could see without measuring. The other five levels
+ * do carry the attribute, because they are not the default.
+ */
+.bn-block-content[data-content-type="heading"] {
+  line-height: 1.3;
+  --level: 1.875em;
+}
+
+/*
+ * Semibold, and the selectors are this long because of the cascade rather than
+ * because of the DOM.
+ *
+ * BlockNote sets `font-weight: 700` twice — once on
+ * `.bn-block-outer:not([data-prev-type]) > .bn-block > .bn-block-content[data-content-type=heading]`
+ * and once on `.bn-block-outer[data-prev-type=heading] > .bn-block > .bn-block-content`,
+ * which is the same heading mid-transition and carries no type of its own. Three
+ * classes and an attribute, and then four: a rule on the bare
+ * `.bn-block-content[data-content-type="heading"]` loses to both, which is why the
+ * scale above can set `--level` from there — BlockNote *reads* that variable — but
+ * the weight has to out-specify them. `.bn-root` is the wrapper, and it is here to
+ * add the one class that settles it rather than to narrow anything.
+ *
+ * 700 at 1.875em is loud enough to read as a shout. The documents this scale is
+ * borrowed from set their headings in 600.
+ */
+.bn-root
+  .bn-editor
+  .bn-block-outer
+  > .bn-block
+  > .bn-block-content[data-content-type="heading"],
+.bn-root
+  .bn-editor
+  .bn-block-outer[data-prev-type="heading"]
+  > .bn-block
+  > .bn-block-content {
+  font-weight: 600;
+}
+.bn-block-content[data-content-type="heading"][data-level="2"] { --level: 1.5em; }
+.bn-block-content[data-content-type="heading"][data-level="3"] { --level: 1.25em; }
+.bn-block-content[data-content-type="heading"][data-level="4"] { --level: 1.1em; }
+.bn-block-content[data-content-type="heading"][data-level="5"] { --level: 1em; }
+.bn-block-content[data-content-type="heading"][data-level="6"] { --level: 0.9em; }
+
+/* The same scale again, for the size a block is animating *from*. BlockNote keeps
+   the outgoing level in `data-prev-level` and its own six values behind
+   `--prev-level`, so without these a heading turned into a paragraph would spend
+   its 200ms transition falling from BlockNote's 3em rather than from ours — a
+   flash of the wrong scale on every level change. Set on the outer, which is where
+   the attribute is. */
+.bn-block-outer[data-prev-level="1"] { --prev-level: 1.875em; }
+.bn-block-outer[data-prev-level="2"] { --prev-level: 1.5em; }
+.bn-block-outer[data-prev-level="3"] { --prev-level: 1.25em; }
+.bn-block-outer[data-prev-level="4"] { --prev-level: 1.1em; }
+.bn-block-outer[data-prev-level="5"] { --prev-level: 1em; }
+.bn-block-outer[data-prev-level="6"] { --prev-level: 0.9em; }
+
+/*
+ * The air above a heading, and why it is a margin on the *outer* rather than
+ * padding on the content.
+ *
+ * BlockNote positions the drag handle and the `+` from the hovered block's own
+ * bounding rect. Padding on `.bn-block-content` grows that rect upwards, so the
+ * handle would sit alone in the gap above the heading instead of beside its words;
+ * a margin on `.bn-block-outer` moves the whole row — text and controls together —
+ * which is the behaviour a reader would predict.
+ *
+ * `:has()` because the type is on the content and the margin belongs on the box
+ * around it, and the child combinators are load-bearing: without them this would
+ * also match a block that merely *contains* a heading further down, which is every
+ * ancestor of one.
+ */
+.bn-block-outer:has(> .bn-block > .bn-block-content[data-content-type="heading"]) {
+  margin-top: var(--note-heading-space);
+  margin-bottom: var(--note-heading-space-after);
+}
+
+/* Levels 1 and 2 open more of it. **Level 1 is matched twice on purpose**: it is
+   the default, and BlockNote writes a prop that equals its default as no attribute
+   at all — the same trap the `--level` block above is written around. So the
+   `:not([data-level])` is the h1s in every note there is, and the `[data-level="1"]`
+   is the ones some other writer spelled out. Both are more specific than the rule
+   above, which is what lets them win it. */
+.bn-block-outer:has(
+    > .bn-block > .bn-block-content[data-content-type="heading"]:not([data-level])
+  ),
+.bn-block-outer:has(
+    > .bn-block > .bn-block-content[data-content-type="heading"][data-level="1"]
+  ) {
+  margin-top: var(--note-heading-space-1);
+}
+
+.bn-block-outer:has(
+    > .bn-block > .bn-block-content[data-content-type="heading"][data-level="2"]
+  ) {
+  margin-top: var(--note-heading-space-2);
+}
+
+/* Except the first, which has the page's own top padding above it already. */
+.bn-editor
+  > .bn-block-group
+  > .bn-block-outer:first-child:has(
+    > .bn-block > .bn-block-content[data-content-type="heading"]
+  ) {
+  margin-top: 0;
+}
+
+/* Inline code — the `code` style, typed with backticks. BlockNote gives it one
+   declaration, `font-family: monospace`, which on a note set in the editor's UI
+   font is a difference most readers do not see.
+
+   Colour rather than a chip: no background, no padding, no radius. `charts-blue`
+   because it is a `--vscode-*` colour every theme defines and tunes for its own
+   background — a literal blue would be unreadable in half of them — and because
+   the link colour, the other blue on this page, is spoken for by links. */
+.bn-inline-content code {
+  color: var(--vscode-charts-blue);
+  /* VS Code's own webview stylesheet draws the chip this rule is undoing —
+     `textPreformat.background` behind `1px 3px` of padding and a 4px radius. It
+     styles the bare `code` selector, so leaving these out does not remove the
+     chip, it hands it back. The code block below cancels the same rule. */
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-family: var(--vscode-editor-font-family);
+  /* The monospace face runs larger than the UI font at the same size, so code
+     left at 1em sits taller than the line it is in and pushes the leading. */
+  font-size: 0.875em;
+}
+
+.bn-editor a {
+  color: var(--vscode-textLink-foreground);
+}
+
+/*
+ * A code block, wearing the box the preview draws around one.
+ *
+ * BlockNote's own is a hardcoded `#161616` with white text and 24px of padding: a
+ * black card in a light theme, and a different card from the preview's in either.
+ * What is below is the preview's `pre` (`host/note-html.ts`) restated in VS Code's
+ * tokens — the sunken surface inline code already uses, the theme's hairline, the
+ * same 8px radius and the same 1rem of air.
+ *
+ * **The card is the `<pre>`, not the block.** BlockNote paints the background on
+ * `.bn-block-content`, which is also where every block's 6px of space lives — so
+ * there the gap is *inside* the card and the card itself all but touches its
+ * neighbours. Moving the paint one level in leaves the space outside it, which is
+ * both what the preview shows and 12px, like every other pair of blocks.
+ */
+.bn-block-content[data-content-type="codeBlock"] {
+  border-radius: 0;
+  background: none;
+  color: inherit;
+}
+
+.bn-block-content[data-content-type="codeBlock"] > pre {
+  padding: 1rem;
+  border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+  /* The preview's 0.5rem, which is also the radius BlockNote drew here — the one
+     number in this box that did not have to change. */
+  border-radius: 0.5rem;
+  background: var(--vscode-textCodeBlock-background);
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.85rem;
+}
+
+/* VS Code hands every webview a stylesheet of its own, and one of its rules gives
+   `code` a background (`textPreformat.background`) — which inside a code block is a
+   chip drawn behind each line rather than a card behind the block. The preview
+   cancels the same rule with `pre code { background: none }`; this is that. */
+.bn-block-content[data-content-type="codeBlock"] code {
+  padding: 0;
+  background: none;
+}
+
+/*
+ * Tabs.
+ *
+ * Two rules do the work and neither of them is on the panel, because there is no
+ * panel: a tab's blocks are its children, and BlockNote puts a block's children in
+ * `.bn-block-group`, a *sibling* of the content the block itself drew. So a tab
+ * marks itself open or shut on an element inside its own content and `:has()`
+ * reaches across to the group. That is BlockNote's own rule for a shut toggle,
+ * which is next to this one in their stylesheet, written the same way.
+ *
+ * Doing it here rather than in the document is the point — see `tabs.ts`. An
+ * attribute on a rendered element is not an edit, so clicking a tab leaves the
+ * note alone; a prop would have saved the file on every click.
+ */
+.bn-block-content[data-content-type="tab"] {
+  /* A tab's own row draws nothing — the strip above already names it. Hidden
+     rather than left empty, or every tab in the group would spend a blank line. */
+  display: none;
+}
+
+/*
+ * `> * >`, and it is not a shortcut.
+ *
+ * A React block spec is mounted through Tiptap's node view renderer, which puts
+ * an element of its own — `.react-renderer` — between `.bn-block` and the
+ * `.bn-block-content` it drew. So `.bn-block > .bn-block-content` is the vanilla
+ * path and never matches one of these, which is why this rule did nothing at
+ * first and every tab's blocks showed at once. BlockNote hit the same thing with
+ * their toggle and answered it by writing both paths out; the wildcard is those
+ * two in one, and it cannot reach a tab group nested inside this one, because a
+ * block group holds `.bn-block-outer` and never `.bn-block-content` directly.
+ */
+.bn-block:has(> .bn-block-content > .note-tab[data-open="false"]) > .bn-block-group,
+.bn-block:has(> * > .bn-block-content > .note-tab[data-open="false"]) > .bn-block-group {
+  display: none;
+}
+
+/*
+ * Two indents where the pane wanted one rail.
+ *
+ * BlockNote opens every nested block group 24px and draws a hairline down the gap
+ * — the guide that makes a nested list read as nested — and a tab group is two
+ * groups deep before any of its content (`tabList` > `tab` > the blocks). So a
+ * pane started 48px from the margin behind two rules, which says "these blocks
+ * are under something, twice" about blocks that are simply in a pane.
+ *
+ * Both of BlockNote's are dropped here and one line is drawn back below, on the
+ * pane itself. Only these two levels: a list inside a tab still indents its own
+ * children, because these select the groups hanging directly off a `tabList` or a
+ * `tab` and nothing deeper. BlockNote takes its toggles out of the same line the
+ * same way — `:not(:has(.bn-toggle-wrapper))` in their stylesheet.
+ */
+.bn-block:has(> .bn-block-content:is([data-content-type="tabList"], [data-content-type="tab"])) > .bn-block-group,
+.bn-block:has(> * > .bn-block-content:is([data-content-type="tabList"], [data-content-type="tab"])) > .bn-block-group {
+  margin-left: 0;
+}
+
+.bn-block:has(> .bn-block-content:is([data-content-type="tabList"], [data-content-type="tab"])) > .bn-block-group > .bn-block-outer::before,
+.bn-block:has(> * > .bn-block-content:is([data-content-type="tabList"], [data-content-type="tab"])) > .bn-block-group > .bn-block-outer::before {
+  display: none;
+}
+
+/*
+ * The one rail, on the pane.
+ *
+ * Which tab is open is answered at the top of the group and nowhere else, and a
+ * pane can be long enough to scroll that answer off the screen — so the content
+ * carries a line saying it belongs to something. One line for the pane rather
+ * than BlockNote's one per block group: their guide is about depth, and a tab's
+ * blocks are not deeper than the strip, they are behind it.
+ *
+ * The strip's own `border-bottom` in the same colour is the other half of it; the
+ * two meet at the corner and read as one frame around the open tab.
+ */
+.bn-block:has(> .bn-block-content[data-content-type="tab"]) > .bn-block-group,
+.bn-block:has(> * > .bn-block-content[data-content-type="tab"]) > .bn-block-group {
+  border-left: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+  padding-left: 16px;
+}
+
+/* The strip. `flex-wrap`, because the alternative for a group with more tabs than
+   fit is a scroller, and a scroller here would hide tabs behind an edge in a
+   document that has no other horizontal anything. */
+.note-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  padding-bottom: 4px;
+  /* The block above spends `--note-block-space` under itself and the tab's first
+     block spends it above; without this the strip would sit in that gap looking
+     like part of whichever it is nearer. */
+  border-bottom: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+  user-select: none;
+}
+
+.note-tabs button {
+  border: none;
+  border-radius: var(--bn-border-radius-small, 4px);
+  background: none;
+  color: var(--vscode-descriptionForeground);
+  font: inherit;
+  font-size: 0.875em;
+  line-height: 1.4;
+  padding: 3px 10px;
+  cursor: pointer;
+}
+
+.note-tabs button:hover {
+  background: var(--vscode-list-hoverBackground);
+  color: var(--vscode-list-hoverForeground, inherit);
+}
+
+/* The open one, in the weight the editor gives a selected row of anything. Colour
+   *and* weight: a strip that marked the open tab by colour alone is a strip
+   nobody reading it in a high-contrast theme can use. */
+.note-tab-button[data-open="true"] {
+  background: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
+  font-weight: 600;
+}
+
+/* The two controls, held apart from the names so that a click meant for a tab
+   does not land on one of them. `margin-left: auto` on the first pushes both to
+   the far end of the strip. */
+.note-tab-add {
+  margin-left: auto;
+}
+
+.note-tab-add,
+.note-tab-remove {
+  padding: 3px 8px;
+  font-size: 1em;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+/* Shown on the way in, which is where a reader looks for them, and out of the way
+   the rest of the time: a note being read is not a note being rearranged. Focus
+   as well as hover, or the two buttons are unreachable from a keyboard. */
+.bn-block-content:hover > .note-tabs .note-tab-add,
+.bn-block-content:hover > .note-tabs .note-tab-remove,
+.note-tabs:focus-within .note-tab-add,
+.note-tabs:focus-within .note-tab-remove {
+  opacity: 1;
+}
+
+/* The rename field, drawn as the tab it is replacing so the strip does not jump
+   when a name is being typed. */
+.note-tab-name {
+  border: 1px solid var(--vscode-focusBorder);
+  border-radius: var(--bn-border-radius-small, 4px);
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font: inherit;
+  font-size: 0.875em;
+  line-height: 1.4;
+  padding: 2px 9px;
+  outline: none;
+}
+
+/*
+ * A table, likewise.
+ *
+ * BlockNote draws every cell with `1px solid #ddd` whatever the theme — a bright
+ * hairline on a dark editor, and the one thing in a note that never followed it —
+ * with 5px/10px cells, no fill behind the header row, and the note's own 16px type.
+ * These are the preview's numbers (`th, td` in `host/note-html.ts`) in VS Code's
+ * tokens. Header cells are real `<th>` here, so the preview's `thead th` is `th`.
+ */
+.bn-editor [data-content-type="table"] table {
+  font-size: 0.9rem;
+}
+
+.bn-editor [data-content-type="table"] th,
+.bn-editor [data-content-type="table"] td {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+}
+
+.bn-editor [data-content-type="table"] th {
+  background: var(--vscode-textCodeBlock-background);
+}
+
+/*
+ * And the width, which is the last thing the two disagreed about: BlockNote pins
+ * `width: auto !important`, so a table with nothing resized shrank to its own
+ * content while the preview gave it the measure.
+ *
+ * The rule the preview follows is in `columns()`: a table fills the measure unless
+ * *every* column carries a width, in which case it is exactly as wide as they add up
+ * to. A `<col>` with no `style` is a column nobody has sized, which is what `:has()`
+ * asks about — and the `!important` is only there to answer BlockNote's own.
+ */
+.bn-editor [data-content-type="table"] table:has(> colgroup > col:not([style])) {
+  width: 100% !important;
+}
+
+/*
+ * And how that width is divided, which is the other half of the same rule.
+ *
+ * ProseMirror lays every table out `fixed`, so a table nobody has resized comes out
+ * in equal columns — two of them at half the measure each, whatever is in them.
+ * The preview only turns `fixed` on for a table that carries widths (`table.sized`),
+ * because that is what makes a width a width; with none it leaves the browser to
+ * size the columns from their content, and a two-word column beside a sentence gets
+ * to be narrow.
+ *
+ * So: `auto` while *no* column has been sized, and ProseMirror's `fixed` back the
+ * moment one has — which is also what keeps a column the reader dragged at the width
+ * they dragged it to.
+ */
+.bn-editor
+  [data-content-type="table"]
+  table:not(:has(> colgroup > col[style])) {
+  table-layout: auto;
+}
+
+/*
+ * A drawing in a note, and the canvas it is edited on.
+ *
+ * A port of the app's `note-editor.css` drawing rules with the tokens swapped, and
+ * two things it does not need: no `:hover`-only toolbar (a webview has no second
+ * pane to compete with for attention), and no theme variant, because everything
+ * here is a `--vscode-*` variable already.
+ */
+/*
+ * `width: 100%` is what makes a drawing the width of the note rather than a thin
+ * column.
+ *
+ * BlockNote lays a block's content out with `display: flex`, so this is a flex item
+ * and takes its width from its contents — and its contents are an SVG deliberately
+ * stripped of its `width` and `height` (`drawing-block.tsx`) so that it scales to
+ * whatever column it is given. Each waits for the other, and the drawing collapses
+ * to the scene's own pixel size in the corner of the note. The app's own stylesheet
+ * carries this line and the same comment; leaving it out on the way over reproduced
+ * the bug exactly.
+ */
+.note-drawing {
+  width: 100%;
+  position: relative;
+  margin: 0.75rem 0;
+  border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--vscode-editor-background);
+}
+
+/*
+ * A selected drawing.
+ *
+ * Worth overriding rather than leaving: BlockNote marks the selected block with a
+ * hardcoded `4px solid #64a0ff`, which is a blue that follows neither of the
+ * editor's themes.
+ */
+.bn-block-content.ProseMirror-selectednode > .note-drawing {
+  outline: 2px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+/*
+ * A plain block box, deliberately not a centring grid: `place-items: center` takes
+ * an item off `stretch`, and an SVG with no intrinsic size then has nothing to be
+ * as wide as — it falls back to its natural size and sits as a stamp in the middle
+ * of a full-width block.
+ *
+ * And no background of its own. There was a white one here, which was the wrong
+ * answer to the right observation: the export was pinned to light, so on a dark
+ * editor the strokes were invisible without it. The export follows the theme now
+ * (`drawing-block.tsx`), so the drawing sits on the note's own surface like
+ * everything else.
+ */
+.note-drawing-canvas {
+  display: block;
+  width: 100%;
+  min-height: 6rem;
+  padding: 0.75rem;
+  cursor: pointer;
+}
+
+/* The empty state is a line of text rather than a drawing, and it is the one thing
+ * in this block that did want centring. */
+.note-drawing-placeholder {
+  margin: 0;
+  padding: 1.25rem 0;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+.note-drawing-toolbar {
+  position: absolute;
+  top: 0.35rem;
+  right: 0.35rem;
+  display: flex;
+  gap: 0.25rem;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.note-drawing:hover .note-drawing-toolbar,
+.note-drawing-toolbar:focus-within {
+  opacity: 1;
+}
+
+.note-drawing-toolbar button {
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--vscode-button-border, transparent);
+  border-radius: 3px;
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  font-family: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.note-drawing-toolbar button:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* The canvas, over the note. Fixed rather than a dialog element: this webview has
+   no component library, and what a dialog is for here is filling the panel. */
+.drawing-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--vscode-editor-background) 70%, black);
+}
+
+.drawing-dialog {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  border: 1px solid var(--vscode-widget-border, var(--vscode-panel-border));
+  border-radius: 6px;
+  background: var(--vscode-editor-background);
+  overflow: hidden;
+}
+
+.drawing-dialog-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid
+    var(--vscode-widget-border, var(--vscode-panel-border));
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.drawing-dialog-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.drawing-dialog-head button {
+  padding: 0.25rem 0.7rem;
+  border: 1px solid var(--vscode-button-border, transparent);
+  border-radius: 3px;
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  font-family: inherit;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.drawing-dialog-head button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.drawing-dialog-head .drawing-dialog-save {
+  background: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+
+/* Excalidraw measures its own canvas against this box, so it has to be a real
+   size rather than something that grows with its content. */
+.drawing-canvas {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.drawing-canvas .excalidraw {
+  height: 100%;
+}
+
+.drawing-loading {
+  margin: 0;
+  padding: 2rem;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+/* The panel when it cannot show the note — an unsupported block type, or
+   anything that threw while drawing one. Sized and coloured from VS Code's own
+   variables so it reads as part of the editor rather than as a web page that
+   broke. See `main.tsx`'s `Problem`. */
+.note-problem {
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  color: var(--vscode-foreground);
+  font-family: var(--vscode-font-family);
+  line-height: 1.6;
+}
+
+.note-problem h1 {
+  margin: 0 0 0.75rem;
+  color: var(--vscode-errorForeground);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.note-problem p {
+  margin: 0 0 0.75rem;
+  overflow-wrap: anywhere;
+}
+
+.note-problem-hint {
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.9em;
+}
+
+/* A block this build has no editor for, drawn as the listing of it that
+   `unsupported.tsx` folds it into. Deliberately a code block to look at: it is
+   what markdown does for something it cannot express, and it reads as "this is
+   data, not your prose" without needing a warning colour. */
+.note-unsupported {
+  border: 1px solid var(--vscode-editorWidget-border, var(--vscode-panel-border));
+  border-radius: 4px;
+  background: var(--vscode-textCodeBlock-background);
+  overflow: hidden;
+}
+
+.note-unsupported-label {
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid
+    var(--vscode-editorWidget-border, var(--vscode-panel-border));
+  color: var(--vscode-descriptionForeground);
+  font-family: var(--vscode-font-family);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.note-unsupported-label code {
+  color: var(--vscode-textPreformat-foreground);
+  font-family: var(--vscode-editor-font-family);
+  font-weight: 600;
+}
+
+/* Scrolls rather than wraps: a line break invented inside JSON is a lie about
+   the JSON, and this is the only copy of the block on screen. */
+.note-unsupported pre {
+  margin: 0;
+  padding: 0.75rem;
+  overflow-x: auto;
+  color: var(--vscode-editor-foreground);
+  font-family: var(--vscode-editor-font-family);
+  font-size: 0.78rem;
+  line-height: 1.5;
+  tab-size: 2;
+}
+
+/* The last of the markdown restrictions, and the only one that is a stylesheet
+   rule rather than a schema.
+
+   A picture is resized by dragging a handle, and the width that drag writes is
+   `previewWidth` — one of the things `whatMarkdownDrops` names, because a
+   markdown picture is `![caption](url)` and has nowhere to keep a number. There
+   is no switch for it in BlockNote's image block and no menu item to leave out:
+   the handle *is* the feature, so hiding it is the whole of taking it away.
+
+   `.note-markdown` is on the editor itself, from `editor.tsx`, and is on nothing
+   at all over a `.note`. */
+.note-markdown .bn-resize-handle {
+  display: none;
+}

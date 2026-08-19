@@ -1,0 +1,1437 @@
+[
+ {
+  "id": "7434b0e9-55a7-4380-a09d-6701070dad36",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Previews, and the studio",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "015e3fa0-cbe9-47f6-ad8e-656401db9310",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A note is read more often than it is written, and by more than one kind of reader. So there are three surfaces: this editor, a finished page, and the editor again in a browser tab.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d8aa287b-2dae-47c8-a61d-acd4977cd785",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Preview to the side",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "6d80c9a6-17a9-47f0-ae90-cf652a34402e",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "ANote: Open Preview to the Side",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — the ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "$(open-preview)",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " button on the title bar. A second webview, redrawn from every keystroke, following VS Code's theme. It runs no script at all: the HTML arrives finished, which is why a drawing in it is an inlined SVG rather than a canvas.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "5dd038a9-1f04-45a8-9c05-ebc5f1b5a8c3",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A link, for a browser",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "37928d60-d0a3-49f3-96ba-80256e451f96",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "ANote: Copy Preview Link",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " hands you a URL on a loopback port this window picked:",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d0ecad11-2425-4974-af63-c7a553cb2a80",
+  "type": "codeBlock",
+  "props": {
+   "language": "text"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "http://127.0.0.1:53127/read/Tour/3.%20Previews%20and%20the%20studio.note",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a1cbb81c-1f41-4c52-b309-6c113e41ffd5",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Open it in Chrome beside whatever the note documents, or hand it to something that fetches pages.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "5b6be881-c245-4e1d-a138-4bc9d4532443",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "It carries the note's own path, so a pasted link says which note it is.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "2fdb1e88-fce2-4c8a-befd-1e32afed84ae",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The page polls and redraws itself when you save — a browser has no channel to be told.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "aabb44b3-f97e-4124-835f-1addd2912ad5",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The link lives as long as the window.",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " Close VS Code and the port is gone.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "40735341-ba80-48df-a32c-38068ef28227",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The studio",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "18910801-70aa-4ab3-b3f3-a8cad41d0318",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "ANote: Open Studio in Browser",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " serves the notes folder as a page you can type in: the notes down the left, this same block editor on the right, on the same port as the pages.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "bfb3d7a9-d888-4fd5-9055-25aede7c9cee",
+  "type": "codeBlock",
+  "props": {
+   "language": "text"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "http://127.0.0.1:53127/?note=Tour/3.%20Previews%20and%20the%20studio.note",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "655f9ade-970d-4e5a-a2ce-6dbfd83c41a7",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "It is the same editor — one file, two hosts — with ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "fetch",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " where the webview has ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "postMessage",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ". Which means the ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " menu, the drag handles, the tables and ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/drawing",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " are all there, in Chrome.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d8d060b9-a550-49e3-a197-3609461415da",
+  "type": "tabList",
+  "props": {},
+  "children": [
+   {
+    "id": "e4e29306-c1cb-4af2-b8a5-7d62bff8fb90",
+    "type": "tab",
+    "props": {
+     "title": "What it does"
+    },
+    "children": [
+     {
+      "id": "9a709dab-d192-4d48-b6b9-b9dc29799cfa",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Lists every ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": ".note",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " under the notes folder, in a tree.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "c20edfab-5081-4fee-b497-0b5d3e2f5dc8",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Opens any of them, and saves with ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "⌘S",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " or on a pause in the typing.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "0bb1b9b2-1b87-4a51-90fa-815801477243",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Takes a dropped picture and files it beside the note, like the editor does.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "29952eea-8041-4bdb-9e2d-310c5a1642be",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Creates a note, because a sidebar with no ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "+",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " sends you back to VS Code to start one.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "972495ce-f2a0-43cd-8a14-3f3d83cfc9eb",
+    "type": "tab",
+    "props": {
+     "title": "What it will not do"
+    },
+    "children": [
+     {
+      "id": "12fcfd92-462d-46e7-9e13-07961190e5dc",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Rename, move or delete — those are the Explorer's, here as everywhere else.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "4d3611a0-e26b-4f57-8807-19890d30f075",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Serve anything that is not a ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": ".note",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " or a file inside a ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "<note>.assets",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " folder.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "fd63d4e9-6000-4a91-9e3e-a1cd6d0ea4e9",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Answer a request that did not arrive addressed to ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "127.0.0.1",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": ".",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "7df6203e-54b8-40dd-9d77-2275970930e3",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Answer a write without the token it handed the page it served.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "029424b8-1d54-4f3b-bd94-d663787c16b8",
+    "type": "tab",
+    "props": {
+     "title": "Two notes at once"
+    },
+    "children": [
+     {
+      "id": "38030ae4-7cce-4999-a835-2508ae1ff451",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "You can have the same note open in the studio and in a VS Code tab. Every save says which version it is replacing, and a save against a file that has moved on is refused — the studio then offers you the choice rather than picking one.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "2cd30fc6-112a-47b2-a7b5-bf1b11a803c7",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Light and dark",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f02312b5-ba55-4ebe-a4c7-8f585091c331",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Both previews carry both palettes and pick with one attribute. ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "ANote: Switch Preview Theme",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " (the ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "$(color-mode)",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " button) moves it on: the editor's theme → light → dark → the editor's again. A pinned theme is yours, in ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "globalState",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", and outranks ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "preview.theme",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " in the config.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "29397cc1-401d-4824-9115-da933bfa69f8",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The served page keeps its own choice in ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "localStorage",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and writes it before the first paint, so a reader who asked for dark does not get a flash of white.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "6e515943-5434-4ee4-b166-7d7c2900cbdc",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The port, and what stands in front of it",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "e8792047-1457-480b-92fb-c2f2128a1165",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "One port",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", chosen by the OS unless ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "preview.port",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " names one. Bound to loopback, and that part is not configurable.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "78d4d8f9-271e-48ab-9daa-e68120652d41",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A request must have arrived addressed to ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "127.0.0.1",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " or ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "localhost",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — which is what stops a site pointing its own name at your loopback.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "51c75aba-07c8-4541-a0d4-1eaa948e5193",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A fetch some other origin started is refused, token or no token.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f7c69589-2832-4a88-b1e9-a8daec504925",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Writes need a token minted per run and handed only to the page this server served.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "b894143f-9371-443f-a637-73ec9d7163c0",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A page reachable from the network is your own writing on the network, and a studio reachable from the network is somebody else's write access to it. Hence loopback, and hence the token.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "06dbf77f-0798-4be9-b600-f7d8bcddc7ae",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The commands, in one table",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "530e6197-cd17-4f3c-b77a-33cf8691823a",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    300,
+    null
+   ],
+   "headerRows": 1,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Command",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "What you get",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: New Note",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": ".note",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " in ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "notesDir",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", open and empty",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Open as Note",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": ".md",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " file in this editor",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Open Preview to the Side",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a webview beside the note",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Switch Preview Theme",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "editor → light → dark → editor",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Copy Preview Link",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a loopback URL to this note as a page",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Open Preview in Browser",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the same URL, opened for you",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Open Studio in Browser",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the notes folder, editable, in a tab",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Export as Markdown",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the note as text, converted in the host",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "ANote: Open Configuration",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "anote.config.json",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", with the defaults filled in",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "2e40359c-993e-4de9-a6bb-4eb97557e2d9",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The configuration behind all of it",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "da1f50aa-aee9-42a3-8dd4-d85375a557d3",
+  "type": "codeBlock",
+  "props": {
+   "language": "json"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "{\n  \"$schema\": \"./schemas/anote.schema.json\",\n  \"notesDir\": \"sample\",\n  \"newNote\": { \"defaultName\": \"Untitled\" },\n  \"assets\": { \"dirSuffix\": \".assets\" },\n  \"preview\": { \"theme\": \"auto\", \"pollMs\": 2000, \"port\": 0 },\n  \"studio\": { \"enabled\": true },\n  \"mcp\": { \"enabled\": true }\n}",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "5c564f52-04ca-48ad-bee4-fe18678c6c30",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "One optional file at the root of the workspace folder, watched: writing it redraws the open previews and re-offers the MCP servers. Nothing in it can stop the extension starting — a value that does not check out is replaced with the default and reported once.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "0be47075-c52a-48f2-8af6-60713ad1ea66",
+  "type": "toggleListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Why it is a file in the repository and not a VS Code setting",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "2c319ae6-439d-4ca0-887f-db7aae2d37eb",
+    "type": "paragraph",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "Where notes live, and what the folder beside them is called, are facts about the repository: the same for everyone who clones it. Which palette ",
+      "styles": {}
+     },
+     {
+      "type": "text",
+      "text": "you",
+      "styles": {
+       "bold": true
+      }
+     },
+     {
+      "type": "text",
+      "text": " read previews in is not, which is why the theme switch lives in ",
+      "styles": {}
+     },
+     {
+      "type": "text",
+      "text": "globalState",
+      "styles": {
+       "code": true
+      }
+     },
+     {
+      "type": "text",
+      "text": " instead.",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ }
+]

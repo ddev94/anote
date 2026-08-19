@@ -1,0 +1,477 @@
+/*
+ * The studio's own two jobs, and the first one is the whole trick.
+ *
+ * **It supplies the palette VS Code would have.** `src/webview/theme.css` themes
+ * the editor by pointing every one of BlockNote's `--bn-*` variables at a
+ * `--vscode-*` one — the values every webview is handed for free. In a browser tab
+ * there is no such handout, so without this file the editor would render with every
+ * colour resolving to nothing. Rather than fork that stylesheet for a second host
+ * (825 lines, and then two of them), this one *defines* the same variable names, in
+ * both palettes, once. The editor that draws a note on this page is byte for byte
+ * the one that draws it in VS Code.
+ *
+ * The names are VS Code's own theme keys and the values are its Light Modern and
+ * Dark Modern, near enough that a note looks like the same note in both surfaces.
+ *
+ * **The second job is the shell** — the sidebar, the header, the two bars — which
+ * is the only part of this page that has no equivalent inside the editor and so has
+ * no variables to inherit. It is written against the same tokens as everything
+ * else, so a theme change moves all of it together.
+ *
+ * `data-theme` on `<html>` is `auto`, `light` or `dark`, exactly as in the served
+ * preview (`page()` in `host/note-html.ts`), and the dark values are written twice
+ * for the same reason they are there: the media query is the browser being asked,
+ * and it must be skipped by a page whose reader has said `light`.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --vscode-font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+  --vscode-font-size: 13px;
+  --vscode-editor-font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+    Consolas, "Liberation Mono", monospace;
+
+  --vscode-foreground: #3b3b3b;
+  --vscode-descriptionForeground: #6a6a6a;
+  --vscode-disabledForeground: #a1a1a1;
+  --vscode-errorForeground: #e51400;
+  --vscode-focusBorder: #005fb8;
+
+  --vscode-editor-background: #ffffff;
+  --vscode-editor-foreground: #3b3b3b;
+  --vscode-editorCursor-foreground: #1f1f1f;
+
+  --vscode-widget-border: #d4d4d4;
+  --vscode-panel-border: #e5e5e5;
+  --vscode-widget-shadow: rgba(0, 0, 0, 0.16);
+
+  --vscode-editorWidget-background: #f8f8f8;
+  --vscode-editorWidget-border: #d4d4d4;
+  --vscode-editorHoverWidget-background: #f8f8f8;
+  --vscode-editorHoverWidget-foreground: #3b3b3b;
+  --vscode-menu-background: #ffffff;
+  --vscode-menu-foreground: #3b3b3b;
+
+  --vscode-list-hoverBackground: #f0f0f0;
+  --vscode-list-hoverForeground: inherit;
+  --vscode-list-activeSelectionBackground: #005fb8;
+  --vscode-list-activeSelectionForeground: #ffffff;
+
+  --vscode-input-background: #ffffff;
+  --vscode-input-foreground: #3b3b3b;
+
+  --vscode-button-background: #005fb8;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-border: transparent;
+  --vscode-button-secondaryBackground: #e5e5e5;
+  --vscode-button-secondaryForeground: #3b3b3b;
+  --vscode-button-secondaryHoverBackground: #cccccc;
+
+  --vscode-textLink-foreground: #005fb8;
+  --vscode-textPreformat-foreground: #a31515;
+  --vscode-textCodeBlock-background: #f3f3f3;
+  --vscode-charts-blue: #0f4a85;
+
+  /* The studio's own, which have no VS Code key to borrow: the sidebar is a
+     surface the editor has no equivalent of. */
+  --studio-side-background: #f8f8f8;
+  --studio-side-width: 16rem;
+}
+
+/* Dark, in the two ways a page arrives at it — the browser's own answer, and a
+   reader who pressed the switch. The guards differ; the values must not. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+
+    --vscode-foreground: #cccccc;
+    --vscode-descriptionForeground: #9d9d9d;
+    --vscode-disabledForeground: #7f7f7f;
+    --vscode-errorForeground: #f85149;
+    --vscode-focusBorder: #0078d4;
+
+    --vscode-editor-background: #1f1f1f;
+    --vscode-editor-foreground: #cccccc;
+    --vscode-editorCursor-foreground: #aeafad;
+
+    --vscode-widget-border: #313131;
+    --vscode-panel-border: #2b2b2b;
+    --vscode-widget-shadow: rgba(0, 0, 0, 0.36);
+
+    --vscode-editorWidget-background: #202020;
+    --vscode-editorWidget-border: #454545;
+    --vscode-editorHoverWidget-background: #202020;
+    --vscode-editorHoverWidget-foreground: #cccccc;
+    --vscode-menu-background: #1f1f1f;
+    --vscode-menu-foreground: #cccccc;
+
+    --vscode-list-hoverBackground: #2a2d2e;
+    --vscode-list-hoverForeground: inherit;
+    --vscode-list-activeSelectionBackground: #04395e;
+    --vscode-list-activeSelectionForeground: #ffffff;
+
+    --vscode-input-background: #313131;
+    --vscode-input-foreground: #cccccc;
+
+    --vscode-button-background: #0078d4;
+    --vscode-button-foreground: #ffffff;
+    --vscode-button-border: transparent;
+    --vscode-button-secondaryBackground: #313131;
+    --vscode-button-secondaryForeground: #cccccc;
+    --vscode-button-secondaryHoverBackground: #3c3c3c;
+
+    --vscode-textLink-foreground: #4daafc;
+    --vscode-textPreformat-foreground: #d7ba7d;
+    --vscode-textCodeBlock-background: #262626;
+    --vscode-charts-blue: #4daafc;
+
+    --studio-side-background: #181818;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --vscode-foreground: #cccccc;
+  --vscode-descriptionForeground: #9d9d9d;
+  --vscode-disabledForeground: #7f7f7f;
+  --vscode-errorForeground: #f85149;
+  --vscode-focusBorder: #0078d4;
+
+  --vscode-editor-background: #1f1f1f;
+  --vscode-editor-foreground: #cccccc;
+  --vscode-editorCursor-foreground: #aeafad;
+
+  --vscode-widget-border: #313131;
+  --vscode-panel-border: #2b2b2b;
+  --vscode-widget-shadow: rgba(0, 0, 0, 0.36);
+
+  --vscode-editorWidget-background: #202020;
+  --vscode-editorWidget-border: #454545;
+  --vscode-editorHoverWidget-background: #202020;
+  --vscode-editorHoverWidget-foreground: #cccccc;
+  --vscode-menu-background: #1f1f1f;
+  --vscode-menu-foreground: #cccccc;
+
+  --vscode-list-hoverBackground: #2a2d2e;
+  --vscode-list-hoverForeground: inherit;
+  --vscode-list-activeSelectionBackground: #04395e;
+  --vscode-list-activeSelectionForeground: #ffffff;
+
+  --vscode-input-background: #313131;
+  --vscode-input-foreground: #cccccc;
+
+  --vscode-button-background: #0078d4;
+  --vscode-button-foreground: #ffffff;
+  --vscode-button-border: transparent;
+  --vscode-button-secondaryBackground: #313131;
+  --vscode-button-secondaryForeground: #cccccc;
+  --vscode-button-secondaryHoverBackground: #3c3c3c;
+
+  --vscode-textLink-foreground: #4daafc;
+  --vscode-textPreformat-foreground: #d7ba7d;
+  --vscode-textCodeBlock-background: #262626;
+  --vscode-charts-blue: #4daafc;
+
+  --studio-side-background: #181818;
+}
+
+/* `theme.css` leaves the body transparent, because in a webview the tab has
+   already painted it. Here nothing has. */
+body {
+  background: var(--vscode-editor-background);
+}
+
+.studio {
+  display: grid;
+  grid-template-columns: var(--studio-side-width) minmax(0, 1fr);
+  height: 100%;
+  font-family: var(--vscode-font-family);
+  color: var(--vscode-foreground);
+}
+
+/* The sidebar --------------------------------------------------------------- */
+
+.studio-sidebar {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--vscode-panel-border);
+  background: var(--studio-side-background);
+  font-size: var(--vscode-font-size);
+}
+
+.studio-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem 0.5rem 0.5rem 0.85rem;
+}
+
+.studio-root {
+  overflow: hidden;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.studio-new {
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--vscode-foreground);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.studio-new:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+
+.studio-filter,
+.studio-naming {
+  margin: 0 0.6rem 0.4rem;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 4px;
+  background: var(--vscode-input-background);
+  color: var(--vscode-input-foreground);
+  font-family: inherit;
+  font-size: 0.82rem;
+}
+
+.studio-filter:focus-visible,
+.studio-naming:focus-visible {
+  outline: 1px solid var(--vscode-focusBorder);
+  outline-offset: -1px;
+}
+
+.studio-tree {
+  flex: 1;
+  min-height: 0;
+  padding: 0.25rem 0.35rem 2rem;
+  overflow-y: auto;
+}
+
+/* One shape for a folder and a note, so the tree reads as one list rather than as
+   two kinds of thing that happen to be stacked. */
+.studio-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  padding: 0.25rem 0.4rem;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+}
+
+.studio-row:hover {
+  background: var(--vscode-list-hoverBackground);
+}
+
+.studio-row.is-open {
+  background: var(--vscode-list-activeSelectionBackground);
+  color: var(--vscode-list-activeSelectionForeground);
+}
+
+.studio-twist {
+  flex: none;
+  width: 0.85rem;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+.studio-row.is-open .studio-twist {
+  color: inherit;
+}
+
+.studio-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-folder .studio-name {
+  color: var(--vscode-descriptionForeground);
+  font-weight: 600;
+}
+
+.studio-empty {
+  margin: 0.75rem 0.5rem;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+/* The note ---------------------------------------------------------------- */
+
+.studio-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--vscode-editor-background);
+}
+
+.studio-head {
+  display: flex;
+  flex: none;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid var(--vscode-panel-border);
+}
+
+.studio-title {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  min-width: 0;
+  font-size: 0.88rem;
+}
+
+.studio-title strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.studio-path {
+  overflow: hidden;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pushed right, and deliberately quiet: it is the answer to a question nobody asks
+   until they wonder, which is why it says the state rather than flashing at one. */
+.studio-state {
+  margin-left: auto;
+  color: var(--vscode-descriptionForeground);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+}
+
+.studio-state.is-typing {
+  color: var(--vscode-charts-blue);
+}
+
+.studio-theme {
+  flex: none;
+  padding: 0.25rem 0.6rem;
+  border: 1px solid var(--vscode-widget-border);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--vscode-descriptionForeground);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+
+.studio-theme:hover {
+  color: var(--vscode-foreground);
+}
+
+/* The same pill as the theme switch, because it is the same kind of thing: a
+   control, next to the note's name rather than in it. An `<a>` and not a button —
+   it goes somewhere, and a reader should be able to middle-click it. */
+.studio-page {
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.studio-bar {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 1rem;
+  border-bottom: 1px solid var(--vscode-widget-border);
+  background: var(--vscode-editorWidget-background);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.studio-bar.is-problem {
+  color: var(--vscode-errorForeground);
+}
+
+.studio-bar button {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid var(--vscode-button-border);
+  border-radius: 4px;
+  background: var(--vscode-button-secondaryBackground);
+  color: var(--vscode-button-secondaryForeground);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+}
+
+.studio-bar button:hover {
+  background: var(--vscode-button-secondaryHoverBackground);
+}
+
+/* The one scrolling pane. `min-height: 0` because a grid child will otherwise
+   refuse to be smaller than its content, which for a long note means the whole
+   page scrolls and the header leaves with it. */
+.studio-note {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.studio-blank {
+  max-width: 34rem;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+  color: var(--vscode-descriptionForeground);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.studio-blank-hint {
+  font-size: 0.85rem;
+}
+
+/* The note's own column, wider than a webview's because a browser tab is not a
+   pane that can be split in half. */
+.studio-note .bn-editor {
+  max-width: 52rem;
+  margin: 0 auto;
+}
+
+@media (max-width: 46rem) {
+  /* A phone, or a window split with something else: the sidebar becomes a strip
+     across the top rather than eating half the note. */
+  .studio {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .studio-sidebar {
+    max-height: 40vh;
+    border-right: none;
+    border-bottom: 1px solid var(--vscode-panel-border);
+  }
+}

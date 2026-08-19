@@ -1,0 +1,214 @@
+{
+  "name": "anote",
+  "displayName": "ANote",
+  "description": "ANote \u2014 a block editor for notes kept as files: a slash menu, tables, and pictures filed beside the note.",
+  "version": "0.1.0",
+  "private": true,
+  "publisher": "ddev94",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ddev94/anote.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ddev94/anote/issues"
+  },
+  "homepage": "https://github.com/ddev94/anote#readme",
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Notebooks",
+    "Visualization",
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "activationEvents": [],
+  "contributes": {
+    "languages": [
+      {
+        "id": "anote",
+        "aliases": [
+          "ANote Note"
+        ],
+        "extensions": [
+          ".note"
+        ],
+        "icon": {
+          "light": "./media/note-light.svg",
+          "dark": "./media/note-dark.svg"
+        }
+      }
+    ],
+    "jsonValidation": [
+      {
+        "fileMatch": "anote.config.json",
+        "url": "./schemas/anote.schema.json"
+      }
+    ],
+    "mcpServerDefinitionProviders": [
+      {
+        "id": "anote.mcp",
+        "label": "ANote"
+      }
+    ],
+    "customEditors": [
+      {
+        "viewType": "anote.editor",
+        "displayName": "Note",
+        "selector": [
+          {
+            "filenamePattern": "*.note"
+          }
+        ],
+        "priority": "default"
+      },
+      {
+        "viewType": "anote.markdownEditor",
+        "displayName": "Note (Markdown)",
+        "selector": [
+          {
+            "filenamePattern": "*.md"
+          }
+        ],
+        "priority": "option"
+      }
+    ],
+    "commands": [
+      {
+        "command": "anote.new",
+        "title": "New Note",
+        "category": "ANote",
+        "icon": "$(new-file)"
+      },
+      {
+        "command": "anote.openPreview",
+        "title": "Open Preview to the Side",
+        "category": "ANote",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "anote.togglePreviewTheme",
+        "title": "Switch Preview Theme",
+        "category": "ANote",
+        "icon": "$(color-mode)"
+      },
+      {
+        "command": "anote.exportMarkdown",
+        "title": "Export as Markdown",
+        "category": "ANote"
+      },
+      {
+        "command": "anote.copyPreviewLink",
+        "title": "Copy Preview Link",
+        "category": "ANote",
+        "icon": "$(link)"
+      },
+      {
+        "command": "anote.openInBrowser",
+        "title": "Open Preview in Browser",
+        "category": "ANote",
+        "icon": "$(globe)"
+      },
+      {
+        "command": "anote.openStudio",
+        "title": "Open Studio in Browser",
+        "category": "ANote",
+        "icon": "$(browser)"
+      },
+      {
+        "command": "anote.copyStudioLink",
+        "title": "Copy Studio Link",
+        "category": "ANote"
+      },
+      {
+        "command": "anote.openAsNote",
+        "title": "Open as Note",
+        "category": "ANote",
+        "icon": "$(book)"
+      },
+      {
+        "command": "anote.openConfig",
+        "title": "Open Configuration",
+        "category": "ANote",
+        "icon": "$(gear)"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "anote.openAsNote",
+          "when": "resourceExtname == .md && activeEditor == workbench.editors.files.textFileEditor",
+          "group": "navigation"
+        },
+        {
+          "command": "anote.openPreview",
+          "when": "resourceExtname == .note",
+          "group": "navigation"
+        },
+        {
+          "command": "anote.openInBrowser",
+          "when": "resourceExtname == .note",
+          "group": "navigation"
+        },
+        {
+          "command": "anote.togglePreviewTheme",
+          "when": "activeWebviewPanelId == anote.preview",
+          "group": "navigation"
+        }
+      ],
+      "explorer/context": [
+        {
+          "command": "anote.openAsNote",
+          "when": "resourceExtname == .md",
+          "group": "navigation@19"
+        },
+        {
+          "command": "anote.new",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation@20"
+        },
+        {
+          "command": "anote.openStudio",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation@23"
+        },
+        {
+          "command": "anote.copyPreviewLink",
+          "when": "resourceExtname == .note",
+          "group": "navigation@21"
+        },
+        {
+          "command": "anote.openInBrowser",
+          "when": "resourceExtname == .note",
+          "group": "navigation@22"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "mcp": "node dist/mcp.js",
+    "test": "bun test/config.ts && bun test/preview.ts && bun test/preview-pages.ts && bun test/studio-routes.ts && bun test/note-schema.ts && bun test/note-markdown.ts && bun test/note-format.ts && bun test/mcp.ts",
+    "package": "bunx @vscode/vsce package --no-dependencies"
+  },
+  "dependencies": {
+    "@blocknote/core": "^0.53.0",
+    "@blocknote/mantine": "^0.53.0",
+    "@blocknote/react": "^0.53.0",
+    "@excalidraw/excalidraw": "^0.18.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.9",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@types/vscode": "^1.101.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0"
+  }
+}

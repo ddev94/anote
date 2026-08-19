@@ -1,0 +1,1820 @@
+[
+ {
+  "id": "9813f31d-ec5a-4d75-81a8-8ddd0cb62ba0",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Blocks",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "212da8e6-4507-4553-b9fe-468b339e7934",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Every line in a note is a block, and every block came out of one menu. Type ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and the list below is what you get; the point of this note is that you can drag any of it, tint any of it, and nest most of it.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f80a8a51-0290-4dd1-ad16-dd4cc1b69a06",
+  "type": "divider",
+  "props": {},
+  "children": []
+ },
+ {
+  "id": "4d4f8d73-57da-4df4-bfe7-d3926bf4c1de",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Text, and what can be done to it",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c0092b2e-b612-4b07-919e-4132cf9c38ff",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A paragraph carries ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "bold",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "italic",
+    "styles": {
+     "italic": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "underline",
+    "styles": {
+     "underline": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "strikethrough",
+    "styles": {
+     "strike": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "code",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", a ",
+    "styles": {}
+   },
+   {
+    "type": "link",
+    "href": "https://code.visualstudio.com",
+    "content": [
+     {
+      "type": "text",
+      "text": "link",
+      "styles": {}
+     }
+    ]
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "colour",
+    "styles": {
+     "textColor": "blue"
+    }
+   },
+   {
+    "type": "text",
+    "text": " and ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "a highlight",
+    "styles": {
+     "backgroundColor": "yellow"
+    }
+   },
+   {
+    "type": "text",
+    "text": ". Select any of it and the toolbar appears above the selection.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "dafbad83-4920-49a6-96a6-1db351f7060b",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "⌘B",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "⌘I",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "⌘U",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — the three you already know. The rest are on the toolbar.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "afc401dd-b9a7-48a7-8280-d3ea89649354",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "center"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A block can be aligned. This one sits in the middle,",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "5c455c49-1a10-4bfe-a6f1-ce6de9cbae10",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "right"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "and this one against the right edge.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "9430a4cd-bf78-4198-8e55-6206364cb7e4",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "yellow",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A block can be tinted, which is a property of the block rather than of the words in it.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f451ae12-4259-4222-bad9-31b293b7bfb3",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Headings go to six levels; three of them are one keystroke: `#`, `##`, `###` followed by a space.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "6527d472-5301-49b5-b479-e846db85c74d",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 3,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A third-level heading, for instance",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "168261b2-3bec-4003-b01d-f7bf07c5a3f5",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Lists, and nesting",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "64c753e7-3304-4dcf-9291-b6224134f641",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A bullet. ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "-",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and a space makes one out of any paragraph.",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "fed885b7-8a43-4bb0-891d-3a7c9bced63b",
+    "type": "bulletListItem",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "Tab",
+      "styles": {
+       "code": true
+      }
+     },
+     {
+      "type": "text",
+      "text": " nests it under the line above",
+      "styles": {}
+     }
+    ],
+    "children": [
+     {
+      "id": "2f6928e7-6091-440e-8725-57276cc49dc0",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "as far down as it needs to go",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "ed667ab6-4a86-496f-bfd9-568bf5fe780d",
+    "type": "bulletListItem",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "⇧Tab",
+      "styles": {
+       "code": true
+      }
+     },
+     {
+      "type": "text",
+      "text": " lifts it back out",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ },
+ {
+  "id": "c3d1d67d-329f-4ee7-ac1c-2e7e1a1cf139",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Bullets, numbers and checkboxes all nest the same way",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "0d088c4f-321b-4323-a6c5-c9efe99e00f8",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [],
+  "children": []
+ },
+ {
+  "id": "2c57ac7d-44cb-43d8-bb4f-4186c1a5db18",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A numbered list renumbers itself when you drag an item",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "5c06e8b2-9c49-43a3-a0d7-843de46243fe",
+    "type": "numberedListItem",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "so does a nested one",
+      "styles": {}
+     }
+    ],
+    "children": []
+   },
+   {
+    "id": "993ba8f4-2f16-4a9e-9d19-ddb6202b05b9",
+    "type": "numberedListItem",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "which is the only thing worth checking about a numbered list",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ },
+ {
+  "id": "fc8a4bcd-acf2-4622-b699-5bbd538ce247",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [],
+  "children": []
+ },
+ {
+  "id": "52eb8ca3-3ba0-46b7-b4fe-00b418128ffa",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": true
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A checklist is a list whose items are done",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "cc62dc7f-723e-447c-9999-0f31d3d2f253",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": true
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Ticked items are struck through — in the preview too",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "53efac92-ca8e-4761-9c16-9446cf78ef3c",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "This one is not done yet",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "9390e34c-2e11-4ccb-bd75-95ee2617c2da",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [],
+  "children": []
+ },
+ {
+  "id": "6e0430f1-956d-4485-8974-28fde9574740",
+  "type": "toggleListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A toggle list is a fold, and it starts shut",
+    "styles": {}
+   }
+  ],
+  "children": [
+   {
+    "id": "15d415a4-9dc8-4c7d-9240-5a1d7200c37a",
+    "type": "paragraph",
+    "props": {
+     "backgroundColor": "default",
+     "textColor": "default",
+     "textAlignment": "left"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "Whatever is inside is a block like any other: paragraphs, code, a table, another toggle. Which one is open is remembered per block and never reaches the file, so the note is the same document for everyone who opens it.",
+      "styles": {}
+     }
+    ],
+    "children": []
+   },
+   {
+    "id": "206c8216-36ef-410e-981b-75c30cd76ff7",
+    "type": "codeBlock",
+    "props": {
+     "language": "ts"
+    },
+    "content": [
+     {
+      "type": "text",
+      "text": "// including this.",
+      "styles": {}
+     }
+    ],
+    "children": []
+   }
+  ]
+ },
+ {
+  "id": "871008bb-fcb0-46b7-8363-32419b2b1e5c",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Quotes, rules and code",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "535c3512-fb14-49b4-8a4a-7e107168cb0d",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A quote is one block with its own bar down the left, and it takes children — so a quote can hold a list, or a second paragraph.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "71508088-1d0c-4db3-9f47-1a44ba9d693b",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A divider is the ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "---",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " you would have typed anyway:",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a53992a2-bf11-4e53-8571-d0d7b82b1a16",
+  "type": "divider",
+  "props": {},
+  "children": []
+ },
+ {
+  "id": "04895704-c302-4030-bffd-bb035d58fe6a",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A code block keeps its language, and the language is what a highlighter reads:",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "17742b45-3a09-4611-9e20-f99d3f6abafe",
+  "type": "codeBlock",
+  "props": {
+   "language": "ts"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "/** The only fact both sides of the extension read. */\nexport type Edit = {\n  type: \"edit\"\n  text: string     // the whole note, as it should be on disk\n}\n\n// A note is a file, so this is all \"save\" has to mean.\nexport const save = (edit: Edit) => writeFile(note, edit.text)",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "46337f14-1ff8-498f-ac65-44491a9a025e",
+  "type": "codeBlock",
+  "props": {
+   "language": "bash"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "bun run build      # four bundles: extension, webview, studio, mcp\nbun run test       # the renderer, the routes, the converters",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "bd006c27-3d98-497e-963b-6d19de505a52",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Tables",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "2cf16249-409d-4e84-81b0-8ad701f5fd2d",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Drag a column edge to resize it, and the width is written into the note. Cells take their own colour, and the first row is a header.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "9e865a2f-4473-43ea-af72-60052c1df702",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    230,
+    260,
+    null
+   ],
+   "headerRows": 1,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Block",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "How it gets there",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Survives a ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": ".md",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Heading",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "#",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " + space, or ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "/heading",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "yes",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "green",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Table",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "/table",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "yes — GFM pipes",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "green",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Toggle list",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "/toggle",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "no — comes back a bullet",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "orange",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Tabs",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "/tabs",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "no — three headings",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "orange",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Colour, alignment",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "⋮⋮",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " handle",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "no — nowhere to write it",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "orange",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Drawing, clip, attachment",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "/drawing",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "/video",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "/file",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "yes — carried in a comment",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "blue",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "8c94f5db-4070-4e88-847f-91d6bc457a2c",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Tabs",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c88ffc5e-bc1e-49fd-99bf-8feadce417d3",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Three panes in one place in the note. Everything in a pane is an ordinary block.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "0106adf3-739b-4a8e-8810-b05c0dd67a31",
+  "type": "tabList",
+  "props": {},
+  "children": [
+   {
+    "id": "c674616b-cb2d-462f-a510-9a965d4b6e64",
+    "type": "tab",
+    "props": {
+     "title": "The keys"
+    },
+    "children": [
+     {
+      "id": "7641e91e-6359-4683-8ce2-6e879d7c53f6",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "The ones worth learning, in the order you will want them:",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "0e004d17-3c90-433e-b2e8-80db65d6fb70",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "⌘S",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " — save. A note is a file, so this is the file's.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "674571be-04cc-4ee0-9bb7-205d9bcdb4bf",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "/",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " — the block menu, filtered as you type.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "8e8a3c75-29bb-4ab0-a61b-2f0fa34c280b",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Tab",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " / ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "⇧Tab",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " — nest a list item, or lift it out.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "3d27b4d2-6528-4f12-bd6e-7778ece43952",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "⌘⇧8",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " — a bullet list. ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "⌘⇧7",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " numbers, ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "⌘⇧9",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " checkboxes.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "6c3581d9-7b8a-4a92-9267-20703cf4c71e",
+      "type": "bulletListItem",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "⌘Z",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " — undo, kept per note across tab switches.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "4c3af686-95cd-4ed1-b656-cde091966c94",
+    "type": "tab",
+    "props": {
+     "title": "The menus"
+    },
+    "children": [
+     {
+      "id": "33b14730-c47d-4e8e-bae9-50a1dfb000a9",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Three of them, and each answers a different question:",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "6414f930-a0f1-48c4-bca6-9d502bb1d398",
+      "type": "table",
+      "props": {
+       "textColor": "default"
+      },
+      "content": {
+       "type": "tableContent",
+       "columnWidths": [
+        200,
+        null
+       ],
+       "headerRows": 1,
+       "rows": [
+        {
+         "cells": [
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "Where",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          },
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "What it holds",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          }
+         ]
+        },
+        {
+         "cells": [
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "/",
+             "styles": {
+              "code": true
+             }
+            },
+            {
+             "type": "text",
+             "text": ", in the note",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          },
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "which block to make here",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          }
+         ]
+        },
+        {
+         "cells": [
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "the ",
+             "styles": {}
+            },
+            {
+             "type": "text",
+             "text": "⋮⋮",
+             "styles": {
+              "code": true
+             }
+            },
+            {
+             "type": "text",
+             "text": " handle",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          },
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "what to do to this block: colour, delete, drag",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          }
+         ]
+        },
+        {
+         "cells": [
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "the selection toolbar",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          },
+          {
+           "type": "tableCell",
+           "content": [
+            {
+             "type": "text",
+             "text": "what to do to these words",
+             "styles": {}
+            }
+           ],
+           "props": {
+            "colspan": 1,
+            "rowspan": 1,
+            "backgroundColor": "default",
+            "textColor": "default",
+            "textAlignment": "left"
+           }
+          }
+         ]
+        }
+       ]
+      },
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "aedbf502-e3a8-4141-8253-7dc1371f8d1e",
+    "type": "tab",
+    "props": {
+     "title": "Over a `.md`"
+    },
+    "children": [
+     {
+      "id": "4642aec2-fae6-4dff-8071-567aa21d7d8e",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "The same editor, with a shorter menu: markdown has nowhere to put a toggle list, a colour or a tab group, so those are taken out of the schema rather than hidden.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "caba4dd0-3e63-43b8-8c4b-d582a2ea23e6",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "Markdown.md",
+        "styles": {
+         "code": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " in this folder is the demonstration. ",
+        "styles": {}
+       },
+       {
+        "type": "text",
+        "text": "Open as Note",
+        "styles": {
+         "bold": true
+        }
+       },
+       {
+        "type": "text",
+        "text": " from its title bar.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "48f46df9-d58b-4043-8cc0-c243e858d007",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "One more thing about all of them",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c0d8ea11-a6dc-4d43-96f7-a188deb03a9f",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Every block above has an id, and the id is stable. That is what lets an agent replace one paragraph of a note somebody has open without the caret jumping — see ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "Tour/4. Notes an agent can edit.note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ".",
+    "styles": {}
+   }
+  ],
+  "children": []
+ }
+]

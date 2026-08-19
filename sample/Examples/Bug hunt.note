@@ -1,0 +1,748 @@
+[
+ {
+  "id": "027c6bb2-3011-423a-af55-bf387c9338cc",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Checkout hangs at 30s",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "e6b4d6d3-836d-48a6-aaec-b71213f0a4d5",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "INC-4412",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " · reported by support, 2026-08-14 09:20 · ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "closed",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " 2026-08-14 15:05",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "fc88484e-339b-4bc2-8b0b-a5fce0b28f1d",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    140,
+    null
+   ],
+   "headerRows": 0,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Symptom",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "POST /checkout",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " returns nothing, then a gateway 504 at exactly 30s",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Blast radius",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "about 4% of orders — only carts with a gift card",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "First seen",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "release ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "2026.8.3",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", deployed 08-13 16:40",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Cause",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a second connection taken while the first transaction is still open",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "28aa703b-739f-497f-a048-82079c0fa906",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "What we saw",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "3e1a5136-7434-4d52-bb40-de8564106d9e",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Support forwarded three orders that never confirmed. All three had a gift card applied.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "fe41f946-997a-42fb-a35b-e7f766cf85cc",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "p99",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " on ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "/checkout",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " went from 240ms to 30s at 16:41 on 08-13 — the deploy, not the traffic.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "7183ada2-ee5a-4032-8980-1d4116cd740a",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The pool metric was the tell: ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "db.pool.waiting",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " never came back down after the deploy.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "d29bd82e-1fbb-467d-aabf-08b00246ad01",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Reproduced locally with a two-item cart and any gift card.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "28cc43e8-8971-48ff-98cc-1b9c04b2d0b6",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The query that waits",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c889d97d-3e1b-420b-927e-be32e9f9ede8",
+  "type": "codeBlock",
+  "props": {
+   "language": "sql"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "-- inside the checkout transaction\nSELECT balance FROM gift_cards WHERE code = $1 FOR UPDATE;",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "8811af5b-4d0d-4434-ade3-b05e2fae4175",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "FOR UPDATE",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " is right. Taking it on a ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "second",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " connection is not: the transaction holding the row lock is on the first one, and the pool has two.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "bf268a8b-9785-4a87-bc34-453a4dcafc65",
+  "type": "tabList",
+  "props": {},
+  "children": [
+   {
+    "id": "7d266a46-ecc1-4ca4-a37d-2dc2ade1240c",
+    "type": "tab",
+    "props": {
+     "title": "Before"
+    },
+    "children": [
+     {
+      "id": "c13dc0e7-5b00-4d5c-a3ae-4f33a4ca5ee0",
+      "type": "codeBlock",
+      "props": {
+       "language": "ts"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "await db.transaction(async (tx) => {\n  await reserveStock(tx, cart)\n  // a fresh connection out of the pool — and the lock is on tx\n  const card = await giftCards.lock(cart.giftCard)\n  await charge(tx, cart, card.balance)\n})",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "61171483-41d1-4051-861a-9e3e3460a94a",
+    "type": "tab",
+    "props": {
+     "title": "After"
+    },
+    "children": [
+     {
+      "id": "1d24b2b6-f16e-403a-ac0c-53220da00d8a",
+      "type": "codeBlock",
+      "props": {
+       "language": "ts"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "await db.transaction(async (tx) => {\n  await reserveStock(tx, cart)\n  // the same connection, so the lock is ours to take\n  const card = await giftCards.lock(cart.giftCard, tx)\n  await charge(tx, cart, card.balance)\n})",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   },
+   {
+    "id": "1f842590-2767-4258-9b83-8490cc884e39",
+    "type": "tab",
+    "props": {
+     "title": "The test that would have caught it"
+    },
+    "children": [
+     {
+      "id": "fc75d684-ebce-4198-977e-c9d599209543",
+      "type": "codeBlock",
+      "props": {
+       "language": "ts"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "test(\"two carts, one gift card, no deadlock\", async () => {\n  const both = Promise.all([checkout(cartA), checkout(cartB)])\n  await expect(both).resolves.toHaveLength(2)   // hung at 30s before the fix\n})",
+        "styles": {}
+       }
+      ],
+      "children": []
+     },
+     {
+      "id": "6f4bf681-4665-48af-85a0-66a20f6712ff",
+      "type": "paragraph",
+      "props": {
+       "backgroundColor": "default",
+       "textColor": "default",
+       "textAlignment": "left"
+      },
+      "content": [
+       {
+        "type": "text",
+        "text": "It runs against a real pool of two. With a pool of ten it passes either way, which is why it was not there.",
+        "styles": {}
+       }
+      ],
+      "children": []
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "5c7ce49b-871a-46ed-942d-1b41b9d1cac7",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Fixed, and what is left",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "7d39276d-f803-4a2a-a2fc-78837245f8f1",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": true
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Pass ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "tx",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " into ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "giftCards.lock",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "#4419",
+    "styles": {
+     "code": true
+    }
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c1a8f899-f42e-4e32-b345-99ea81fd5315",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": true
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The concurrency test above, with ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "poolSize: 2",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " in the harness",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "9ba0cc32-580b-4e54-8d8c-a55c586e30b8",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": true
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Alert on ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "db.pool.waiting > 0",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " for 60s, which is what would have paged us",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "57b5396d-b1db-4fb3-9690-1d6128d81726",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Audit the other four callers that take a connection of their own inside a transaction",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "300dcf76-f625-4d56-8b7b-64b30d7ec40c",
+  "type": "checkListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "checked": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Ask whether ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "statement_timeout",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " should be less than the gateway's 30s",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "2a56e2ab-c411-4cf5-83bd-6d6899ae7b2d",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The 30s was the gateway giving up, not the database. Two timeouts where the outer one is shorter means every deadlock reads as “the request vanished”.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ }
+]

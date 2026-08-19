@@ -1,0 +1,101 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://anote.dev/schemas/anote.config.json",
+  "title": "ANote configuration",
+  "description": "anote.config.json \u2014 what a workspace folder gets to decide about ANote. Every key is optional; anything left out, or anything ANote cannot make sense of, falls back to the default.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "The schema this file is written against. Optional \u2014 the extension registers the schema for any file called anote.config.json."
+    },
+    "notesDir": {
+      "type": "string",
+      "default": ".",
+      "description": "Where New Note puts a note when it was not aimed at a folder, and the root the MCP server reads. Relative to this workspace folder; must stay inside it.",
+      "pattern": "^(?!/)(?![A-Za-z]:)(?!.*(^|/)\\.\\.($|/)).*$"
+    },
+    "newNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "What creating a note starts from.",
+      "properties": {
+        "defaultName": {
+          "type": "string",
+          "default": "Untitled",
+          "description": "What the name box is prefilled with. A name, with no path separators in it.",
+          "pattern": "^[^/\\\\]+$"
+        }
+      }
+    },
+    "assets": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The directory a note's own pictures, clips and drawings live in, beside it.",
+      "properties": {
+        "dirSuffix": {
+          "type": "string",
+          "default": ".assets",
+          "description": "Appended to a note's full filename to name that directory: Spec.note -> Spec.note.assets. Letters, digits, dot, dash and underscore only \u2014 it is joined onto a filename to build a path.",
+          "pattern": "^[A-Za-z0-9._-]{1,32}$",
+          "maxLength": 32
+        }
+      }
+    },
+    "preview": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A note as a page \u2014 beside the editor, and on a link in the browser.",
+      "properties": {
+        "theme": {
+          "enum": [
+            "auto",
+            "light",
+            "dark"
+          ],
+          "default": "auto",
+          "description": "The palette a preview starts on. 'auto' follows VS Code beside the editor, and the browser on a link. The toggle command overrides this for the window once it has been pressed."
+        },
+        "pollMs": {
+          "type": "integer",
+          "default": 2000,
+          "minimum": 250,
+          "maximum": 60000,
+          "description": "How often a note open in a browser asks whether it changed. Only the link preview polls; the one beside the editor is pushed."
+        },
+        "port": {
+          "type": "integer",
+          "default": 0,
+          "minimum": 0,
+          "maximum": 65535,
+          "description": "The port the notes are served on, or 0 to let the OS pick a free one \u2014 one port for both surfaces, a note as a page and the studio that edits it. A fixed port is for the one thing an OS-picked one cannot do: survive a restart as the same URL. It is bound on loopback either way, and that part is not configurable."
+        }
+      }
+    },
+    "studio": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The notes folder, open as a page that can edit them \u2014 the sidebar and the block editor, in the browser. It shares its port with the preview pages: one server, one link. See preview.port.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the studio may be opened at all. It is the only thing in ANote that accepts a write from outside the editor, so a workspace that would rather it did not exist turns it off here."
+        }
+      }
+    },
+    "mcp": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The notes, offered to the editor's own agent.",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether this workspace folder's notes are offered as an MCP server at all."
+        }
+      }
+    }
+  }
+}

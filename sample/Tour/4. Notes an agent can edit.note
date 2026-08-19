@@ -1,0 +1,1022 @@
+[
+ {
+  "id": "a0bf794d-410d-4e11-ab66-b812075e0263",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 1,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Notes an agent can edit",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "60ac7437-3415-43a1-873a-c063232f054e",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A note is a file, and a file needs no application to be edited. So the notes folder is also an ",
+    "styles": {}
+   },
+   {
+    "type": "link",
+    "href": "https://modelcontextprotocol.io",
+    "content": [
+     {
+      "type": "text",
+      "text": "MCP",
+      "styles": {}
+     }
+    ]
+   },
+   {
+    "type": "text",
+    "text": " server: a small process with seven tools over these same ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": ".note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " files.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "84f62d9b-6eb8-462b-981f-ef1f644fba44",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "For the editor's own agent there is nothing to register. Installing the extension is the whole configuration — one server per workspace folder, each rooted at that folder. Check ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "MCP: List Servers",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and look for “ANote”.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "57fc24ba-2f0a-4baa-a39b-522f2f0f0fff",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Every other client is told a path and a folder, which is what ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": ".mcp.json",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " at the root is for:",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "2ec33464-bd55-4ebd-ad91-47f74ea38e17",
+  "type": "codeBlock",
+  "props": {
+   "language": "bash"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "bun run build          # dist/mcp.js falls out with the other bundles\nnode dist/mcp.js       # the folder it starts in, or argv[2], or $ANOTE_ROOT",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "ffdc4a09-93f9-4764-9fd6-574260c6cdbb",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The seven tools",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "9efc8d7a-064a-474e-bbb4-e847deca9726",
+  "type": "table",
+  "props": {
+   "textColor": "default"
+  },
+  "content": {
+   "type": "tableContent",
+   "columnWidths": [
+    190,
+    null
+   ],
+   "headerRows": 1,
+   "rows": [
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "Tool",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "What it is for",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "list_notes",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "every ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": ".note",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": " under the root",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "read_note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "as ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "markdown",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", as an ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "outline",
+         "styles": {
+          "code": true
+         }
+        },
+        {
+         "type": "text",
+         "text": ", or as ",
+         "styles": {}
+        },
+        {
+         "type": "text",
+         "text": "json",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "create_note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a new one, from markdown",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "append_note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "to the end, touching nothing above it",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "edit_note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "named blocks, by id — all of the operations or none of them",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "write_note",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "the whole note, and it argues with you first",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    },
+    {
+     "cells": [
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "search_notes",
+         "styles": {
+          "code": true
+         }
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      },
+      {
+       "type": "tableCell",
+       "content": [
+        {
+         "type": "text",
+         "text": "a phrase, and the lines it is on",
+         "styles": {}
+        }
+       ],
+       "props": {
+        "colspan": 1,
+        "rowspan": 1,
+        "backgroundColor": "default",
+        "textColor": "default",
+        "textAlignment": "left"
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "children": []
+ },
+ {
+  "id": "a6c903d4-5a89-4145-b8ef-bcc298e6ec99",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Two documents, not one",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "f48185e5-f9fc-43a1-ab1f-bdb3b2def8fd",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Markdown is what a note ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "says",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ". The outline is what it is ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "made of",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — one line per block, id first:",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "c1235732-67ad-4936-85f8-83c51d6e4bc7",
+  "type": "codeBlock",
+  "props": {
+   "language": "text"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "95070957-a96a-4bbe-87cc-eac08c08e168  heading  Rate limits\n28cfe6fd-f9df-4774-aae4-11528a391c76  paragraph  Sixty a minute, per token, counted in Redis.\n2505db4c-3046-4d44-a3a6-c1a7b3a0d581  bulletListItem  429 carries Retry-After, in seconds.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "77dc1d58-69d0-4bef-b6a7-9c80091b6ad3",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Reading a whole note to change one paragraph is what this is built to make unnecessary: read the outline, then name the block.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "71b23eb8-a89f-4087-8456-0b375674c6cf",
+  "type": "codeBlock",
+  "props": {
+   "language": "json"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "{\n  \"note\": \"Tour/4. Notes an agent can edit.note\",\n  \"ops\": [\n    { \"op\": \"replace\", \"id\": \"<the id from the outline>\", \"markdown\": \"Ninety a minute now.\" },\n    { \"op\": \"after\",   \"id\": \"<the id from the outline>\", \"markdown\": \"- `429` is not retried automatically.\" }\n  ]\n}",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "e5d41d1c-d98d-4881-83f7-40c577f7fed4",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "And ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "a block nobody edited keeps its id",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ", because the editor holds the caret, the undo stack and the selection by block id. A write that mints fresh ids for a note somebody has open is a note that jumps under them.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "ed739ded-2718-4e62-8bc2-1607376ff393",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "What it refuses, and why",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "abfa5ead-56bb-443f-848d-a37841182b86",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "`write_note` argues before it rewrites.",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " Colours, alignment, underline, merged cells and column widths have no markdown syntax, so it names the ones this note would lose and asks for ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "force",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " if you meant it. ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "edit_note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " never has to ask — it only touches the blocks you named.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "32bbb8b7-559c-43d7-b78b-9b34e500a6a4",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "A block markdown cannot express is carried, not dropped.",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " A drawing, a video, an audio clip, an attachment or a block from a later version of the editor each becomes an HTML comment holding the block itself: invisible where markdown is rendered, exact on the way back. Deleting one is then a decision rather than an accident.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a1e7ced2-3cc8-4d1a-8fba-8fe4c8b8b54e",
+  "type": "bulletListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "It will not introduce a block this editor cannot open.",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " A type the note already had is carried, because refusing that would make such a note unfixable. See ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "spec.note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": ".",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "86781fe8-e9c0-4510-af2c-e86f3c723120",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The one thing it cannot see",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "46b185f9-d555-41aa-8f43-5b3cea7de712",
+  "type": "quote",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "VS Code writes nothing to disk until you save, and will not reload a document with unsaved changes. So a write into a note that is open and ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "dirty",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " is a write the next ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "⌘S",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " silently undoes — and nothing outside the editor can find that out. Every tool that writes says so in its own description.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "b1a8b6a1-53a7-4387-80ec-d357bf0f9429",
+  "type": "paragraph",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "The studio does not have this problem: it reads the open document's text and writes through a workspace edit. Closing it properly for the server means the same move, and that is the next program to write rather than a setting to find.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "328e915f-dc71-4c22-a8aa-c7bd33e8a255",
+  "type": "heading",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left",
+   "level": 2,
+   "isToggleable": false
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Try it",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "798239d9-07ce-41cb-8395-970d38e29201",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Ask for a summary: “read the notes in ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "sample/Tour",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and tell me what this extension is”.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "13bf1345-ecb6-48fe-9106-25190f5c0478",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Ask for an edit: “add a ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "Seen also",
+    "styles": {
+     "bold": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " heading to the end of ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "Welcome.note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " listing the tour notes”.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "a8347272-649c-472b-9961-00f11f697cc5",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Ask for the cheap read: “show me the outline of ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "spec.note",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " and say which blocks are folded”.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ },
+ {
+  "id": "b04dd625-8656-4b56-a736-5cf2e63ef013",
+  "type": "numberedListItem",
+  "props": {
+   "backgroundColor": "default",
+   "textColor": "default",
+   "textAlignment": "left"
+  },
+  "content": [
+   {
+    "type": "text",
+    "text": "Then save the file yourself and watch ",
+    "styles": {}
+   },
+   {
+    "type": "text",
+    "text": "git diff",
+    "styles": {
+     "code": true
+    }
+   },
+   {
+    "type": "text",
+    "text": " — every one of those was a file change.",
+    "styles": {}
+   }
+  ],
+  "children": []
+ }
+]

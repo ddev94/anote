@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "anote": {
+      "command": "node",
+      "args": ["dist/mcp.js"]
+    }
+  }
+}
