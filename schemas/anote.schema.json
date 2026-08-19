@@ -32,12 +32,19 @@
     "assets": {
       "type": "object",
       "additionalProperties": false,
-      "description": "The directory a note's own pictures, clips and drawings live in, beside it.",
+      "description": "Where the notes' pictures, clips, drawings and attachments live.",
       "properties": {
+        "dir": {
+          "type": "string",
+          "default": "anote.assets",
+          "description": "The one directory every note's files go in, under notesDir. Named rather than derived from the note, so a note may be renamed or moved without its pictures being left behind. One directory name \u2014 letters, digits, dot, dash and underscore \u2014 because it is joined onto the notes root to build a path.",
+          "pattern": "^[A-Za-z0-9._-]{1,64}$",
+          "maxLength": 64
+        },
         "dirSuffix": {
           "type": "string",
           "default": ".assets",
-          "description": "Appended to a note's full filename to name that directory: Spec.note -> Spec.note.assets. Letters, digits, dot, dash and underscore only \u2014 it is joined onto a filename to build a path.",
+          "description": "Legacy, and read only. What a note written before 'dir' called its own directory: appended to the note's full filename, beside it \u2014 Spec.note -> Spec.note.assets. Nothing is written there any more; it is still read so an older note keeps its pictures.",
           "pattern": "^[A-Za-z0-9._-]{1,32}$",
           "maxLength": 32
         }

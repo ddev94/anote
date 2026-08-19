@@ -1,10 +1,11 @@
 import { createHash } from "node:crypto"
 import * as vscode from "vscode"
 
+import { assetsRootFor, legacyAssetsRootFor } from "./assets"
 import type { Configs } from "./config"
 import { drawingIdsIn, parseNote, withResolvedUrls } from "./note-blocks"
 import { page, renderNote, type PreviewTheme } from "./note-html"
-import { assetsDirFor } from "../config"
+import { assetsPrefixOf } from "../config"
 import type { NoteBlock } from "../protocol"
 
 /**
@@ -103,10 +104,11 @@ export class NotePreviews {
       `Preview ${nameOf(document.uri)}`,
       { viewColumn: vscode.ViewColumn.Beside, preserveFocus: true },
       {
-        // The pictures are read off the disk beside the note, so that directory
-        // is a root — and nothing else is. The preview runs no script of its own
-        // beyond the reload below, so `enableScripts` stays off.
-        localResourceRoots: [dir],
+        /* The two directories a note's pictures are read off the disk from — the
+           workspace's assets directory, and the note's own for a note written
+           before that existed — and nothing else. The preview runs no script of
+           its own beyond the reload below, so `enableScripts` stays off. */
+        localResourceRoots: [dir, assetsRootFor(document.uri, this.configs)],
       }
     )
 
@@ -127,16 +129,14 @@ export class NotePreviews {
     document: vscode.TextDocument
   ): Promise<void> {
     const text = document.getText()
-    const base = panel.webview.asWebviewUri(dirOf(document.uri)).toString()
     const parsed = parseNote(text)
-    const blocks = withResolvedUrls(parsed, base)
+    const blocks = withResolvedUrls(
+      parsed,
+      this.resolverFor(panel.webview, document.uri)
+    )
     // Inlined rather than linked, unlike the pictures: an SVG in an `img` cannot
     // be styled by the page around it, and a diagram has to scale to the column.
-    const drawings = await drawingsIn(
-      parsed,
-      document.uri,
-      assetsDirFor(filenameOf(document.uri), this.configs.for(document.uri))
-    )
+    const drawings = await drawingsIn(parsed, this.drawingDirsFor(document.uri))
 
     // Over what the page is made of rather than the page itself, which cannot be
     // hashed before it is rendered. It is only here because `page` asks for one:
@@ -154,6 +154,40 @@ export class NotePreviews {
       this.themeFor(document.uri)
     )
   }
+
+  /**
+   * How a path a document holds becomes a URL this panel may load.
+   *
+   * The same fork the editor's webview makes, in the one other place that has to
+   * make it: a path with the assets directory's name on the front is relative to
+   * the notes root, and anything else is relative to the note — which is where a
+   * note written before that directory existed keeps its files. Escaped, because
+   * a stored name is now the name the file arrived with and `báo cáo.pdf` is a
+   * filename rather than a URL.
+   */
+  private resolverFor(
+    webview: vscode.Webview,
+    note: vscode.Uri
+  ): (path: string) => string {
+    const prefix = assetsPrefixOf(this.configs.for(note))
+    const assets = webview.asWebviewUri(assetsRootFor(note, this.configs)).toString()
+    const beside = webview.asWebviewUri(dirOf(note)).toString()
+
+    return (path) =>
+      path.startsWith(prefix)
+        ? `${assets}/${encodeURI(path.slice(prefix.length))}`
+        : `${beside}/${encodeURI(path)}`
+  }
+
+  /** Where to look for a drawing's exported picture, in order: the workspace's
+   * assets directory, and then the note's own for a drawing made before that
+   * existed and not saved since. */
+  private drawingDirsFor(note: vscode.Uri): vscode.Uri[] {
+    return [
+      assetsRootFor(note, this.configs),
+      legacyAssetsRootFor(note, this.configs.for(note)),
+    ]
+  }
 }
 
 /** Where the chosen palette is kept. Namespaced, because `globalState` is one
@@ -170,34 +204,38 @@ const NEXT_THEME: Record<PreviewTheme, PreviewTheme> = {
 /**
  * The picture each drawing in the document was last exported as, by id.
  *
- * Read from `<assets>/<id>.svg`, which the editor writes whenever a drawing is
- * saved — this side has no Excalidraw and could not draw a scene if it wanted to,
- * since that needs a canvas and a font stack. Only what this app exported: the file
- * is one of ours, but it is being inlined into a page, and a `.svg` that is not an
+ * Read from `<dir>/<id>.svg`, which the editor writes whenever a drawing is saved
+ * — this side has no Excalidraw and could not draw a scene if it wanted to, since
+ * that needs a canvas and a font stack. Only what this app exported: the file is
+ * one of ours, but it is being inlined into a page, and a `.svg` that is not an
  * SVG is markup going straight into the document.
  *
- * The directory's name is passed in rather than built here, because
- * `assets.dirSuffix` in `anote.config.json` is what decides it and one caller
- * that knows the workspace is better than a rule written down twice.
+ * The directories are passed in rather than built here, in the order they are to
+ * be tried, because `anote.config.json` is what decides their names and one
+ * caller that knows the workspace is better than a rule written down twice.
  */
 async function drawingsIn(
   blocks: NoteBlock[],
-  note: vscode.Uri,
-  assetsDir: string
+  dirs: vscode.Uri[]
 ): Promise<Map<string, string>> {
-  const dir = vscode.Uri.joinPath(dirOf(note), assetsDir)
   const drawings = new Map<string, string>()
 
   await Promise.all(
     drawingIdsIn(blocks).map(async (id) => {
-      try {
-        const bytes = await vscode.workspace.fs.readFile(
-          vscode.Uri.joinPath(dir, `${id}.svg`)
-        )
-        const svg = Buffer.from(bytes).toString("utf8")
-        if (svg.trimStart().startsWith("<svg")) drawings.set(id, svg)
-      } catch {
-        // Never exported. The page says so.
+      for (const dir of dirs) {
+        try {
+          const bytes = await vscode.workspace.fs.readFile(
+            vscode.Uri.joinPath(dir, `${id}.svg`)
+          )
+          const svg = Buffer.from(bytes).toString("utf8")
+          if (svg.trimStart().startsWith("<svg")) {
+            drawings.set(id, svg)
+            return
+          }
+        } catch {
+          // Not in this one. The next, and then the page says it was never
+          // exported.
+        }
       }
     })
   )
@@ -208,8 +246,7 @@ function dirOf(uri: vscode.Uri): vscode.Uri {
   return uri.with({ path: uri.path.slice(0, uri.path.lastIndexOf("/")) })
 }
 
-/** The note's own filename, extension and all — what the assets directory is
- * named after. */
+/** The note's own filename, extension and all. */
 function filenameOf(uri: vscode.Uri): string {
   return uri.path.split("/").pop() ?? "note"
 }

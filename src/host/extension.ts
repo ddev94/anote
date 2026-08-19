@@ -2,6 +2,7 @@ import { randomBytes } from "node:crypto"
 
 import * as vscode from "vscode"
 
+import { assetsRootFor, baseForAssetPath, legacyAssetsRootFor } from "./assets"
 import { Configs } from "./config"
 import { provideMcpServer } from "./mcp-provider"
 import { parseNote } from "./note-blocks"
@@ -11,7 +12,7 @@ import { NoteServer } from "./note-server"
 import { NotePreviews } from "./preview"
 import type { NoteSource } from "./preview-pages"
 import { Studio } from "./studio"
-import { assetsDirFor, CONFIG_FILE, DEFAULT_CONFIG } from "../config"
+import { CONFIG_FILE, DEFAULT_CONFIG } from "../config"
 
 /**
  * What both registrations of the editor are given.
@@ -443,10 +444,14 @@ function sourceFor(uri: vscode.Uri, configs: Configs): NoteSource {
       )
     },
 
+    /* Resolved through `baseForAssetPath`, not against `dir`: a path with the
+       workspace's assets directory on the front is relative to the notes root,
+       and one without is relative to the note — which is where a note written
+       before that directory existed keeps its files. */
     file: async (relative) => {
       try {
         return await vscode.workspace.fs.readFile(
-          vscode.Uri.joinPath(dir, relative)
+          vscode.Uri.joinPath(baseForAssetPath(uri, configs, relative), relative)
         )
       } catch {
         // A file that has gone — the page says what it was.
@@ -456,7 +461,9 @@ function sourceFor(uri: vscode.Uri, configs: Configs): NoteSource {
 
     has: async (relative) => {
       try {
-        await vscode.workspace.fs.stat(vscode.Uri.joinPath(dir, relative))
+        await vscode.workspace.fs.stat(
+          vscode.Uri.joinPath(baseForAssetPath(uri, configs, relative), relative)
+        )
         return true
       } catch {
         return false
@@ -466,25 +473,29 @@ function sourceFor(uri: vscode.Uri, configs: Configs): NoteSource {
     drawingSvg: async (id) => {
       // What the editor exports beside the scene every time a drawing is saved.
       // The name is built from an id the document holds, so it is built the same
-      // way `assetUri` builds one — and checked the same way.
+      // way the editor builds one — and checked the same way.
       if (!/^[0-9a-z-]{1,64}$/i.test(id)) return ""
-      try {
-        const bytes = await vscode.workspace.fs.readFile(
-          vscode.Uri.joinPath(dir, `${assetsName(uri, configs)}/${id}.svg`)
-        )
-        return Buffer.from(bytes).toString("utf8")
-      } catch {
-        // Never saved, so never exported. The page says so.
-        return ""
+
+      /* Both directories, in the order the editor writes them: the workspace's
+         assets directory, and then the note's own for a drawing made before that
+         existed and not saved since. */
+      for (const from of [
+        assetsRootFor(uri, configs),
+        legacyAssetsRootFor(uri, configs.for(uri)),
+      ]) {
+        try {
+          const bytes = await vscode.workspace.fs.readFile(
+            vscode.Uri.joinPath(from, `${id}.svg`)
+          )
+          return Buffer.from(bytes).toString("utf8")
+        } catch {
+          // Not in this one.
+        }
       }
+      // Never saved, so never exported. The page says so.
+      return ""
     },
   }
-}
-
-/** The directory a note's files live in — `<note name>.assets`, beside it,
- * unless the workspace's `assets.dirSuffix` says otherwise. */
-function assetsName(note: vscode.Uri, configs: Configs): string {
-  return assetsDirFor(note.path.split("/").pop() ?? "note", configs.for(note))
 }
 
 /**

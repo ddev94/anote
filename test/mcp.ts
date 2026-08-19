@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process"
-import { mkdtemp, readFile, writeFile } from "node:fs/promises"
+import { mkdir, mkdtemp, readFile, writeFile } from "node:fs/promises"
 import { tmpdir } from "node:os"
 import { join } from "node:path"
 
@@ -75,6 +75,65 @@ console.log("the tools, over a folder of files")
     markdown.includes('<!-- note drawing {"props":{"drawingId":"abc-123"}} -->'),
     markdown
   )
+  check(
+    "and names no files, because none of the ones it points at are there",
+    !markdown.includes("Files this note points at"),
+    markdown
+  )
+}
+
+/*
+ * The files a note points at, out of a folder that has both layouts in it.
+ *
+ * The listing is a walk of the *blocks* rather than of a directory, which is what
+ * one shared assets directory forces: `readdir` would answer a question about one
+ * note with every file every note has ever had. Both layouts are here because both
+ * are read — a path with the shared directory on the front is relative to the root,
+ * and one without is relative to the note, and getting those two the wrong way round
+ * is a listing that quietly says nothing.
+ */
+{
+  await mkdir(join(root, "anote.assets"), { recursive: true })
+  await mkdir(join(root, "Runbook.note.assets"), { recursive: true })
+  // The picture, in the shared directory, under the name it arrived with.
+  await writeFile(join(root, "anote.assets", "báo cáo.png"), "png")
+  // The drawing, still beside its note: made before the shared one existed.
+  await writeFile(join(root, "Runbook.note.assets", "abc-123.excalidraw"), "{}")
+  await writeFile(join(root, "Runbook.note.assets", "abc-123.svg"), "<svg/>")
+  // Pointed at and not there, which must not be listed as though it were.
+  const pointed: NoteBlock[] = [
+    ...START,
+    { id: "id-pic", type: "image", props: { url: "anote.assets/báo cáo.png" } },
+    { id: "id-gone", type: "image", props: { url: "anote.assets/gone.png" } },
+    { id: "id-out", type: "image", props: { url: "../../.ssh/id_rsa" } },
+  ]
+  await writeFile(join(root, "Runbook.note"), JSON.stringify(pointed), "utf8")
+
+  const markdown = await tool("read_note").run({ path: "Runbook.note" }, notes)
+  const line = markdown.split("\n").find((l) => l.startsWith("Files this note"))
+  check(
+    "the picture in the shared directory is listed, under its own name",
+    line?.includes("anote.assets/báo cáo.png") ?? false,
+    line
+  )
+  check(
+    "the drawing beside its note is listed as the note spells it",
+    (line?.includes("Runbook.note.assets/abc-123.excalidraw") ?? false) &&
+      (line?.includes("Runbook.note.assets/abc-123.svg") ?? false),
+    line
+  )
+  check(
+    "one it points at that is not there is not",
+    !(line?.includes("gone.png") ?? true),
+    line
+  )
+  check(
+    "and neither is one that climbs out of the folder",
+    !(line?.includes("id_rsa") ?? true),
+    line
+  )
+
+  await writeFile(join(root, "Runbook.note"), JSON.stringify(START), "utf8")
 }
 
 {

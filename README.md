@@ -84,7 +84,10 @@ a bad value falls back to the default with a warning.
 {
   "notesDir": ".", // where New Note writes, and what the MCP server reads
   "newNote": { "defaultName": "Untitled" },
-  "assets": { "dirSuffix": ".assets" }, // <note>.note.assets, beside a note
+  "assets": {
+    "dir": "anote.assets", // the one folder every note's files go in, under notesDir
+    "dirSuffix": ".assets", // legacy: the <note>.note.assets folders, still read
+  },
   "preview": {
     "theme": "auto", // auto | light | dark
     "pollMs": 2000, // how often a browser tab asks if the note changed

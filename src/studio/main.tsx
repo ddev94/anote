@@ -417,6 +417,8 @@ function App() {
               key={open.generation}
               initial={open.blocks}
               dirUri={open.note.dirUrl}
+              assetsUri={open.note.assetsUrl}
+              assetsDir={open.note.assetsDir}
               /* The studio serves `.note` files and only those — `studio-routes.ts`
                  refuses a path that does not end in one — so the editor it mounts
                  is the whole editor. A markdown file is opened in VS Code's own

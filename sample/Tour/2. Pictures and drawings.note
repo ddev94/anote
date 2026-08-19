@@ -101,8 +101,8 @@
   "props": {
    "textAlignment": "left",
    "backgroundColor": "default",
-   "name": "beside-the-note.png",
-   "url": "2. Pictures and drawings.note.assets/7d5b3c90-41ea-4f66-b2d1-58c9e0f7a314.png",
+   "name": "dragged-in.png",
+   "url": "anote.assets/dragged-in.png",
    "caption": "Dragged in from the Finder. The caption is part of the block.",
    "showPreview": true,
    "previewWidth": 620
@@ -162,7 +162,7 @@
   "content": [
    {
     "type": "text",
-    "text": "Tour/\n  2. Pictures and drawings.note              ← the blocks\n  2. Pictures and drawings.note.assets/\n    7d5b3c90….png                            ← the picture above\n    3c9a5f18….excalidraw                     ← a drawing's scene\n    3c9a5f18….svg                            ← the picture exported from it\n    9a4e17b6….mp4                            ← the clip\n    c1f8b6d4….mp3                            ← the sound\n    5e0d92a7….pdf                            ← the attachment",
+    "text": "sample/\n  anote.assets/\n    dragged-in.png                           ← the picture above\n    the-slash-menu.mp4                       ← the clip\n    four-notes.mp3                           ← the sound\n    anote-cheat-sheet.pdf                    ← the attachment\n    3c9a5f18….excalidraw                     ← a drawing's scene\n    3c9a5f18….svg                            ← the picture exported from it\n  Tour/\n    2. Pictures and drawings.note          ← the blocks",
     "styles": {}
    }
   ],
@@ -217,7 +217,7 @@
    },
    {
     "type": "text",
-    "text": " beside the note and the picture exported from it is ",
+    "text": " in anote.assets/ and the picture exported from it is ",
     "styles": {}
    },
    {
@@ -342,7 +342,7 @@
    "textAlignment": "left",
    "backgroundColor": "default",
    "name": "the-slash-menu.mp4",
-   "url": "2. Pictures and drawings.note.assets/9a4e17b6-0c58-4d31-b7f9-e26305a8dc44.mp4",
+   "url": "anote.assets/the-slash-menu.mp4",
    "caption": "Six seconds of the block menu, drawn rather than recorded.",
    "showPreview": true,
    "previewWidth": 620
@@ -355,7 +355,7 @@
   "props": {
    "backgroundColor": "default",
    "name": "four-notes.mp3",
-   "url": "2. Pictures and drawings.note.assets/c1f8b6d4-2e73-4a90-8f52-6b0d94e17c3b.mp3",
+   "url": "anote.assets/four-notes.mp3",
    "caption": "An audio block is a player and a name.",
    "showPreview": true
   },
@@ -451,7 +451,7 @@
   "props": {
    "backgroundColor": "default",
    "name": "anote-cheat-sheet.pdf",
-   "url": "2. Pictures and drawings.note.assets/5e0d92a7-8b14-4c63-9f28-71ad3e6b04f5.pdf",
+   "url": "anote.assets/anote-cheat-sheet.pdf",
    "caption": "The slash menu and the keys, on one page."
   },
   "children": []
@@ -467,7 +467,7 @@
   "content": [
    {
     "type": "text",
-    "text": "Click it in the preview and it opens; in the editor it is a link to the file beside the note.",
+    "text": "Click it in the preview and it opens; in the editor it is a link to the file in anote.assets/.",
     "styles": {}
    }
   ],

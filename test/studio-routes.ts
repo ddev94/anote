@@ -71,9 +71,13 @@ const notes = new Map<string, string>([
   ["Welcome.note", ""],
 ])
 const files = new Map<string, Buffer>([
+  // A note written before the shared assets directory: its own, beside it.
   ["auth/Spec.note.assets/shape.png", PNG],
-  // Something in the notes folder that is not a note's own file. Nothing must
-  // serve it.
+  // One dropped in since: the workspace's directory, at the notes root, under
+  // the name the file arrived with.
+  ["anote.assets/báo cáo.png", PNG],
+  // Something in the notes folder that is not one of the notes' files. Nothing
+  // must serve it.
   [".env", Buffer.from("SECRET=1")],
 ])
 const assets = new Map<string, Buffer>()
@@ -95,7 +99,7 @@ const workspace: StudioWorkspace = {
     void assets.set(`${note}/${name}`, Buffer.from(bytes)),
   upload: async (note, name, mime, bytes) => {
     uploads.push(`${note} ${name} ${mime} ${bytes.byteLength}`)
-    return `Spec.note.assets/made.png`
+    return `anote.assets/${name}`
   },
   bundle: async (name) =>
     name === "studio.js" ? Buffer.from("// the studio") : null,
@@ -108,7 +112,8 @@ server.mountStudio(workspace, () => ({
   pollMs: 1500,
   theme: "dark",
   root: "sample",
-  assets: ".assets",
+  assets: "anote.assets",
+  legacyAssets: ".assets",
 }))
 
 async function main() {
@@ -218,9 +223,15 @@ async function main() {
   check("hands over the text as it is on disk", opened.text === notes.get("auth/Spec.note"))
   check("and a version to save against", opened.version.length > 0, opened.version)
   check(
-    "and where a picture in it resolves from",
+    "and where a picture in an older note resolves from",
     opened.dirUrl === "/files/auth",
     opened.dirUrl
+  )
+  check(
+    "and where one in the workspace's assets directory does",
+    opened.assetsUrl === "/files/anote.assets" &&
+      opened.assetsDir === "anote.assets",
+    `${opened.assetsUrl} ${opened.assetsDir}`
   )
   const head = await fetch(at(`${API.note}?${PATH_PARAM}=auth/Spec.note`), {
     method: "HEAD",
@@ -330,7 +341,7 @@ async function main() {
     again.status
   )
 
-  console.log("\n# a note's own files")
+  console.log("\n# the notes' files")
   const picture = await fetch(at("/files/auth/Spec.note.assets/shape.png"))
   check("serves the picture", picture.status === 200, picture.status)
   check(
@@ -346,9 +357,18 @@ async function main() {
     "the bytes are the file's own",
     Buffer.from(await picture.arrayBuffer()).equals(PNG)
   )
+  const pooled = await fetch(
+    at(`/files/anote.assets/${encodeURI("báo cáo.png")}`)
+  )
+  check(
+    "and one in the workspace's assets directory, under its own name",
+    pooled.status === 200 &&
+      Buffer.from(await pooled.arrayBuffer()).equals(PNG),
+    pooled.status
+  )
   const loose = await fetch(at("/files/.env"))
   check(
-    "a file in the folder that is not inside a note's assets directory is not served",
+    "a file in the folder that is inside no assets directory is not served",
     loose.status === 404,
     loose.status
   )
@@ -412,13 +432,13 @@ async function main() {
     }
   )
   check(
-    "is filed beside the note",
+    "is handed to the workspace with the note it belongs to",
     uploads[0] === `auth/Spec.note shape.png image/png ${PNG.byteLength}`,
     uploads
   )
   check(
     "and comes back as the path the document will hold",
-    ((await uploaded.json()) as UploadedResult).path === "Spec.note.assets/made.png"
+    ((await uploaded.json()) as UploadedResult).path === "anote.assets/shape.png"
   )
 
   console.log("\n# the bundle")

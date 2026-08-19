@@ -31,10 +31,12 @@ export const READ = "read"
  * like `assets` it will not one day be a directory somebody made. */
 export const BUNDLE = "~"
 
-/** Where a note's own files are served from, mounted at the notes root: a picture
- * in `auth/Spec.note` is fetched from `/files/auth/Spec.note.assets/<file>`. It
- * has to be a path rather than a query parameter because the editor resolves a
- * relative URL against it — see `resolveFileUrl` in `src/webview/editor.tsx`. */
+/** Where a note's files are served from, mounted at the notes root: a picture
+ * dropped into `auth/Spec.note` is fetched from `/files/anote.assets/<file>`, and
+ * one in a note written before that directory existed from
+ * `/files/auth/Spec.note.assets/<file>`. It has to be a path rather than a query
+ * parameter because the editor resolves a relative URL against it — see
+ * `resolveFileUrl` in `src/webview/editor.tsx`. */
 export const FILES = "files"
 
 /** The JSON routes. Everything under `/api/` carries the token below; nothing
@@ -112,8 +114,15 @@ export type NoteResult = {
   /** What a save has to be written against, and what the poll compares. */
   version: string
   /** The note's own directory, as a URL this page may fetch from — the studio's
-   * answer to the `dirUri` the webview gets from `asWebviewUri`. */
+   * answer to the `dirUri` the webview gets from `asWebviewUri`, and what a note
+   * written before the shared assets directory resolves its pictures against. */
   dirUrl: string
+  /** The workspace's assets directory, as a URL this page may fetch from. Where a
+   * file dropped into any note in the folder goes. */
+  assetsUrl: string
+  /** What that directory is called — `assets.dir`. The prefix a path stored in it
+   * carries, and so how the editor tells the two URLs above apart. */
+  assetsDir: string
 }
 
 /** `PUT /api/note`. The version the file is now at, which the page keeps for its

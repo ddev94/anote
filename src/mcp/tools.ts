@@ -183,11 +183,11 @@ export const TOOLS: Tool[] = [
           return body(JSON.stringify(blocks, null, 2))
         default: {
           const markdown = blocksToMarkdown(blocks)
-          const assets = await notes.assets(path)
+          const assets = await notes.assets(path, blocks)
           return body(
             (markdown || "(an empty note)") +
               (assets.length
-                ? `\n\nFiles beside this note (${notes.assetsDir(path)}/): ${assets.join(", ")}`
+                ? `\n\nFiles this note points at: ${assets.join(", ")}`
                 : "")
           )
         }

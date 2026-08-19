@@ -427,7 +427,7 @@
       "content": [
        {
         "type": "text",
-        "text": "Takes a dropped picture and files it beside the note, like the editor does.",
+        "text": "Takes a dropped picture and files it in anote.assets/, like the editor does.",
         "styles": {}
        }
       ],
@@ -511,12 +511,12 @@
        },
        {
         "type": "text",
-        "text": " or a file inside a ",
+        "text": " or a file inside an ",
         "styles": {}
        },
        {
         "type": "text",
-        "text": "<note>.assets",
+        "text": "anote.assets",
         "styles": {
          "code": true
         }
@@ -1352,7 +1352,7 @@
   "content": [
    {
     "type": "text",
-    "text": "{\n  \"$schema\": \"./schemas/anote.schema.json\",\n  \"notesDir\": \"sample\",\n  \"newNote\": { \"defaultName\": \"Untitled\" },\n  \"assets\": { \"dirSuffix\": \".assets\" },\n  \"preview\": { \"theme\": \"auto\", \"pollMs\": 2000, \"port\": 0 },\n  \"studio\": { \"enabled\": true },\n  \"mcp\": { \"enabled\": true }\n}",
+    "text": "{\n  \"$schema\": \"./schemas/anote.schema.json\",\n  \"notesDir\": \"sample\",\n  \"newNote\": { \"defaultName\": \"Untitled\" },\n  \"assets\": { \"dir\": \"anote.assets\" },\n  \"preview\": { \"theme\": \"auto\", \"pollMs\": 2000, \"port\": 0 },\n  \"studio\": { \"enabled\": true },\n  \"mcp\": { \"enabled\": true }\n}",
     "styles": {}
    }
   ],
@@ -1402,7 +1402,7 @@
     "content": [
      {
       "type": "text",
-      "text": "Where notes live, and what the folder beside them is called, are facts about the repository: the same for everyone who clones it. Which palette ",
+      "text": "Where notes live, and what the folder their files go in is called, are facts about the repository: the same for everyone who clones it. Which palette ",
       "styles": {}
      },
      {

@@ -1,11 +1,11 @@
-import { randomUUID } from "node:crypto"
 import * as vscode from "vscode"
 
 import type { NoteServer } from "./note-server"
 import type { StudioWorkspace } from "./studio-routes"
-import { extensionFor } from "./note-files"
+import { assetFilenameFor } from "./note-files"
+import { storeAsset } from "./assets"
 import type { Configs } from "./config"
-import { assetsDirFor } from "../config"
+import { assetsDirFor, legacyAssetsDirFor } from "../config"
 
 /**
  * The studio, as this editor's notes folder.
@@ -73,7 +73,8 @@ export class Studio {
         pollMs: config.preview.pollMs,
         theme: config.preview.theme,
         root: config.notesDir,
-        assets: config.assets.dirSuffix,
+        assets: config.assets.dir,
+        legacyAssets: config.assets.dirSuffix,
       }
     })
     return true
@@ -113,15 +114,34 @@ export class Studio {
     const uriOf = (path: string) => vscode.Uri.joinPath(root(), path)
     const config = () => this.configs.for(folder.uri)
 
-    /** The note's own assets directory, as a URI. The same convention the editor
+    /** The workspace's assets directory, as a URI. The same convention the editor
      * writes by — `assetsDirFor` is where that name is decided. */
-    const assetsOf = (note: string) => {
+    const assetsOf = () => vscode.Uri.joinPath(root(), assetsDirFor(config()))
+
+    /** **Legacy.** The directory this note kept its own files in before there was
+     * one for the folder. Never written to; still read, so a note written before
+     * the change keeps its pictures. */
+    const legacyAssetsOf = (note: string) => {
       const uri = uriOf(note)
       const name = uri.path.split("/").pop() ?? "note"
       return vscode.Uri.joinPath(
         uri.with({ path: uri.path.slice(0, uri.path.lastIndexOf("/")) }),
-        assetsDirFor(name, config())
+        legacyAssetsDirFor(name, config())
       )
+    }
+
+    /** Where a file the *editor* named is — a drawing's scene and the picture
+     * exported from it. Wherever it already is, and the workspace's directory for
+     * one nothing has written yet, which is `locateAsset`'s rule on the other
+     * side of the same fork. */
+    const assetUriOf = async (note: string, name: string) => {
+      const legacy = vscode.Uri.joinPath(legacyAssetsOf(note), name)
+      try {
+        await vscode.workspace.fs.stat(legacy)
+        return legacy
+      } catch {
+        return vscode.Uri.joinPath(assetsOf(), name)
+      }
     }
 
     return {
@@ -136,7 +156,8 @@ export class Studio {
          */
         const found = await vscode.workspace.findFiles(
           new vscode.RelativePattern(root(), "**/*.note"),
-          `{**/node_modules/**,**/*${config().assets.dirSuffix}/**}`
+          `{**/node_modules/**,**/${config().assets.dir}/**,` +
+            `**/*${config().assets.dirSuffix}/**}`
         )
         const base = root().path.replace(/\/$/, "")
         return found
@@ -240,7 +261,7 @@ export class Studio {
       readAsset: async (note, name) => {
         try {
           return await vscode.workspace.fs.readFile(
-            vscode.Uri.joinPath(assetsOf(note), name)
+            await assetUriOf(note, name)
           )
         } catch {
           // A drawing nobody has drawn in yet: the canvas opens empty.
@@ -249,28 +270,25 @@ export class Studio {
       },
 
       writeAsset: async (note, name, bytes) => {
-        await vscode.workspace.fs.writeFile(
-          vscode.Uri.joinPath(assetsOf(note), name),
-          bytes
+        const target = await assetUriOf(note, name)
+        await vscode.workspace.fs.createDirectory(
+          target.with({ path: target.path.slice(0, target.path.lastIndexOf("/")) })
         )
+        await vscode.workspace.fs.writeFile(target, bytes)
       },
 
-      /* A fresh UUID and an extension from the type the browser gave it — the same
-         naming `note-editor.ts` uses, so a file dropped into the studio is
-         indistinguishable from one dropped into the editor. Nothing the user's
-         filesystem named reaches a path of ours. */
+      /* The file's own name, made safe, in the workspace's assets directory —
+         the same naming `note-editor.ts` uses, so a file dropped into the studio
+         is indistinguishable from one dropped into the editor. `storeAsset` is
+         what decides a name that is already taken. */
       upload: async (note, name, mime, bytes) => {
-        const assets = assetsDirFor(
-          uriOf(note).path.split("/").pop() ?? "note",
-          config()
-        )
-        const filename = `${randomUUID()}.${extensionFor(name, mime)}`
-        await vscode.workspace.fs.writeFile(
-          vscode.Uri.joinPath(assetsOf(note), filename),
+        const stored = await storeAsset(
+          assetsOf(),
+          assetFilenameFor(name, mime),
           bytes
         )
-        // Relative and POSIX, which is what the document keeps.
-        return `${assets}/${filename}`
+        // Relative to the notes root and POSIX, which is what the document keeps.
+        return `${assetsDirFor(config())}/${stored}`
       },
 
       bundle: async (name) => {

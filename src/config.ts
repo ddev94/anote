@@ -37,8 +37,33 @@ export type AnoteConfig = {
   }
   assets: {
     /**
-     * What the directory of a note's own files is called: the note's full
-     * filename with this appended, beside it. `Spec.note` → `Spec.note.assets`.
+     * The one directory every note's files go in — under `notesDir`, named this.
+     *
+     * One pool rather than a directory per note, and the reason is a rename. The
+     * old layout named the directory after the note (`Spec.note.assets`, beside
+     * it), which meant the name was a *function of the filename*: renaming
+     * `Spec.note` to `Design.note` in the Explorer left every picture in it
+     * behind, silently, because every lookup had already moved on to
+     * `Design.note.assets`. A fixed name cannot do that — a note may be renamed
+     * and moved anywhere under the notes root and its files are still where the
+     * document says they are.
+     *
+     * A path relative to this directory is what a document holds, prefixed with
+     * this name (`anote.assets/diagram.png`), which is what lets both hosts tell
+     * a path in the pool from one of the old per-note ones and go on reading
+     * both.
+     */
+    dir: string
+    /**
+     * **Legacy, and read only.** What a note's *own* directory used to be
+     * called: the note's full filename with this appended, beside it.
+     * `Spec.note` → `Spec.note.assets`.
+     *
+     * Nothing is written there any more — `dir` above is where a dropped file
+     * lands. It is still here, and still honoured everywhere a file is *read*,
+     * because notes written before the pool existed hold paths into these
+     * directories and a setting that stopped being read is a note whose pictures
+     * went blank on an upgrade.
      */
     dirSuffix: string
   }
@@ -91,7 +116,7 @@ export type AnoteConfig = {
 export const DEFAULT_CONFIG: AnoteConfig = {
   notesDir: ".",
   newNote: { defaultName: "Untitled" },
-  assets: { dirSuffix: ".assets" },
+  assets: { dir: "anote.assets", dirSuffix: ".assets" },
   preview: { theme: "auto", pollMs: 2000, port: 0 },
   studio: { enabled: true },
   mcp: { enabled: true },
@@ -146,6 +171,7 @@ export function parseConfig(raw: unknown): ParsedConfig {
         ),
       },
       assets: {
+        dir: assetsDir(assets.dir, problems),
         dirSuffix: dirSuffix(assets.dirSuffix, problems),
       },
       preview: {
@@ -187,13 +213,52 @@ export function parseConfig(raw: unknown): ParsedConfig {
 }
 
 /**
- * Where a note's own files go, for a note by this name.
+ * Where every note's files go, relative to the notes root.
  *
- * The one place the `<note>.assets` convention is written down, so the editor
- * that creates the directory, the two previews that read it and the MCP server
- * that skips it cannot drift apart on what it is called.
+ * The one place the pool's name is written down, so the two editors that write
+ * into it, the two previews that read out of it and the MCP server that skips it
+ * cannot drift apart on what it is called.
  */
-export function assetsDirFor(noteFilename: string, config: AnoteConfig): string {
+export function assetsDirFor(config: AnoteConfig): string {
+  return config.assets.dir
+}
+
+/**
+ * What a path into the pool starts with — the directory's name and a slash.
+ *
+ * The slash is the whole point of having this rather than the name: a note
+ * actually called `anote.assets.note` has a legacy directory named
+ * `anote.assets.note.assets`, which starts with the pool's *name* and is not the
+ * pool. Comparing against the prefix cannot make that mistake.
+ */
+export function assetsPrefixOf(config: AnoteConfig): string {
+  return `${config.assets.dir}/`
+}
+
+/**
+ * Whether a path a document holds points into the shared pool.
+ *
+ * The fork every read takes. A path that does is relative to the *notes root*; a
+ * path that does not is relative to the note's own directory, which is where
+ * notes written before the pool existed keep their files — see
+ * `legacyAssetsDirFor`. Both go on working, and this is the one question that
+ * tells them apart.
+ */
+export function isSharedAssetPath(path: string, config: AnoteConfig): boolean {
+  return path.startsWith(assetsPrefixOf(config))
+}
+
+/**
+ * **Legacy.** The directory a note written before the pool kept its own files
+ * in — its full filename with `assets.dirSuffix` appended, beside it.
+ *
+ * Never written to any more. Still the answer to "where is this older note's
+ * picture", which is why it did not simply go away: see `assets.dirSuffix`.
+ */
+export function legacyAssetsDirFor(
+  noteFilename: string,
+  config: AnoteConfig
+): string {
   return `${noteFilename}${config.assets.dirSuffix}`
 }
 
@@ -252,6 +317,32 @@ function dirSuffix(value: unknown, problems: string[]): string {
         `${JSON.stringify(value)} — using "${DEFAULT_CONFIG.assets.dirSuffix}".`
     )
     return DEFAULT_CONFIG.assets.dirSuffix
+  }
+  return value
+}
+
+/**
+ * The name of the pool every note's files go in.
+ *
+ * One segment, for the reason `dirSuffix` below is: it is joined onto the notes
+ * root to build a path, and a config file naming `../../` is a repository
+ * pointing an editor's writes at somebody's home directory. `.` and `..` are
+ * refused by name — they pass the pattern and are not directories anybody meant.
+ */
+function assetsDir(value: unknown, problems: string[]): string {
+  if (value === undefined) return DEFAULT_CONFIG.assets.dir
+  if (
+    typeof value !== "string" ||
+    !/^[A-Za-z0-9._-]{1,64}$/.test(value) ||
+    value === "." ||
+    value === ".."
+  ) {
+    problems.push(
+      `assets.dir must be one directory name of 1–64 characters — letters, ` +
+        `digits, dot, dash or underscore, and not "." or "..": ` +
+        `${JSON.stringify(value)} — using "${DEFAULT_CONFIG.assets.dir}".`
+    )
+    return DEFAULT_CONFIG.assets.dir
   }
   return value
 }

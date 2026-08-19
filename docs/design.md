@@ -123,7 +123,10 @@ the whole file is optional.
   "$schema": "https://anote.dev/schemas/anote.config.json",
   "notesDir": ".", // where New Note writes, and what the MCP server reads
   "newNote": { "defaultName": "Untitled" },
-  "assets": { "dirSuffix": ".assets" }, // <note>.note.assets — the folder beside a note
+  "assets": {
+    "dir": "anote.assets", // the one folder every note's files go in, under notesDir
+    "dirSuffix": ".assets", // legacy: the <note>.note.assets folders, still read
+  },
   "preview": {
     "theme": "auto", // auto | light | dark: the palette a page starts on
     "pollMs": 2000, // how often a note open in a browser asks if it changed
@@ -150,11 +153,12 @@ file is still read. `src/config.ts` is where that happens and it throws nothing
 — see `test/config.ts`, which is mostly a list of bad configs and the assertion
 that each one still activates.
 
-**Two of the keys become paths, and both are checked there rather than at the
-call sites.** `notesDir` must stay inside the workspace folder, because it is
-the root an agent gets handed. `assets.dirSuffix` is joined onto a filename, so
-it is letters, digits, dot, dash and underscore and nothing else — which is what
-lets `assetsDirFor` be a string concatenation everywhere it is used.
+**Three of the keys become paths, and all three are checked there rather than at
+the call sites.** `notesDir` must stay inside the workspace folder, because it is
+the root an agent gets handed. `assets.dir` is joined onto that root and
+`assets.dirSuffix` onto a filename, so both are letters, digits, dot, dash and
+underscore and nothing else, one segment each — which is what lets `assetsDirFor`
+and `legacyAssetsDirFor` be string concatenations everywhere they are used.
 
 The file is watched. Writing it redraws the open previews and re-offers the MCP
 servers; it is not a reason to reload the window.
@@ -357,10 +361,11 @@ choice at that point rather than picking one.
 those are the Explorer's. Creating a note is there, because a sidebar with no `+`
 sends you back to VS Code to do the one thing you came to start.
 
-Two smaller notes. `/files/` serves a note's pictures and clips and **only what is
-inside a `<note>.assets` directory** — `notesDir` defaults to the workspace folder,
-so "any file under the root" would have been this extension serving a repository
-over a socket. And the studio is **one folder at a time**: opening it on a second
+Two smaller notes. `/files/` serves the notes' pictures and clips and **only what
+is inside an assets directory** — `anote.assets`, or one of the older
+`<note>.assets` ones — because `notesDir` defaults to the workspace folder, so "any
+file under the root" would have been this extension serving a repository over a
+socket. And the studio is **one folder at a time**: opening it on a second
 folder of a multi-root window *moves* it — the port and the link stay, the sidebar
 changes, and an open tab notices at its next poll. Asking for a page's link mounts
 the studio on that note's folder too, which is what makes the **Edit** button on the
@@ -391,19 +396,49 @@ like a feature that does not work:
 
 ## Pictures
 
-A dropped, pasted or chosen file is read to base64 in the webview, written by the
-host into `<note name>.note.assets/` beside the note, and the document keeps a
-**path relative to the note** — so the note and its pictures move, commit and get
-deleted together, and what is written down is the same string on every machine.
-`localResourceRoots` is the note's own directory and this extension's bundle, and
-nothing else.
+A dropped, pasted or chosen file is read to base64 in the webview and written by
+the host into **one directory for the whole notes folder** — `anote.assets/` at the
+notes root, `assets.dir` in the config. The document keeps a path relative to that
+root with the directory's name on the front: `anote.assets/diagram.png`.
+
+**One pool rather than a directory per note, because of rename.** The first layout
+here was `<note>.note.assets/` beside the note, which reads well and has one fatal
+property: the directory's name was a function of the note's *filename*, derived
+again at every call site. Renaming `Spec.note` in the Explorer moved every lookup
+to `Design.note.assets` while the files stayed where they were, and every picture
+in the note went blank — silently, because rename is the Explorer's job and this
+extension has never had an opinion about it. A fixed name needs no opinion.
+
+**The file keeps its own name.** It used to be a fresh UUID, on the reasoning that
+nothing the filesystem named should reach a path of ours. That is the right
+instinct and the wrong conclusion: it also made every assets directory a list of
+`b7f1e0c2-….png`, which nobody can read and no `git diff` can say anything useful
+about. So the name is kept and made safe instead — the extension from the browser's
+type, the stem sanitised to letters (Unicode ones: `báo cáo.pdf` stays `báo-cáo.pdf`),
+digits, dot, dash and underscore. `storeAsset` in `host/assets.ts` settles a name
+that is taken: identical bytes reuse the file, different bytes get `-1`, and
+nothing is ever overwritten.
+
+**The old directories are still read.** `isSharedAssetPath` is the fork every read
+takes — a path with the pool's prefix resolves against the notes root, anything
+else against the note's own directory, which is where a note written before this
+keeps its files. Nothing is written there any more and nothing is moved out of it:
+a migration that rewrote somebody's notes to tidy a directory name would be this
+extension deciding something it was not asked to. `localResourceRoots` is the pool,
+the note's own directory and this extension's bundle, and nothing else — the pool
+itself rather than the notes root above it, which is the whole point of the name
+being on the front of the stored path.
 
 ## `/drawing`
 
 Excalidraw, in a dialog over the note. The block holds only an id; the scene is
-`<note>.assets/<id>.excalidraw` and the picture exported from it is `<id>.svg`
+`anote.assets/<id>.excalidraw` and the picture exported from it is `<id>.svg`
 beside it — so a note with five diagrams is not five copies of Excalidraw's JSON
-inside the file the editor rewrites on every pause in the typing.
+inside the file the editor rewrites on every pause in the typing. These two are the
+only files the *document* names, so they keep their UUIDs rather than a name a
+person chose, and `locateAsset` writes them back to wherever they already are: an
+older drawing goes on living beside its note rather than being copied into the
+pool and leaving a stale original behind.
 
 The exported SVG is what **both previews** render, because neither can run
 Excalidraw: one is a webview with no canvas mounted, the other is a Node process. A

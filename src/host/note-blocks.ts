@@ -44,27 +44,31 @@ export function drawingIdsIn(blocks: NoteBlock[]): string[] {
 }
 
 /**
- * The same document with every relative URL in it resolved against `base`.
+ * The same document with every relative URL in it put through `resolve`.
  *
- * A picture in a note is stored as a path relative to the note's own directory,
- * which is what keeps the document portable — and which nothing but this
+ * A picture in a note is stored as a path — into the workspace's assets
+ * directory, or, for a note written before that existed, relative to the note
+ * itself — which is what keeps the document portable and which nothing but this
  * extension can resolve. So it is resolved into the document before the walk that
  * renders it runs, rather than inside that walk: `note-html.ts` then keeps one
  * scheme list and sees a URL it can follow like any other, and it is the same
  * shape of substitution the app does for its `note-file://` scheme.
  *
+ * `resolve` rather than a base string, because there are two bases now and which
+ * one a path belongs to is the caller's question, not this walk's. The caller is
+ * `preview.ts`, which has the workspace and can answer it.
+ *
  * Left alone: anything with a scheme of its own — an image embedded from the web,
- * a `data:` URL pasted out of a browser — and anything that climbs out of the
- * note's directory, which is a document asking for a file it has no business
- * naming.
+ * a `data:` URL pasted out of a browser — and anything that climbs, which is a
+ * document asking for a file it has no business naming.
  */
 export function withResolvedUrls(
   blocks: NoteBlock[],
-  base: string
+  resolve: (path: string) => string
 ): NoteBlock[] {
   return blocks.map((block) => {
     const children = block.children
-      ? withResolvedUrls(block.children, base)
+      ? withResolvedUrls(block.children, resolve)
       : block.children
 
     const url = block.props?.url
@@ -73,14 +77,14 @@ export function withResolvedUrls(
     }
     return {
       ...block,
-      props: { ...block.props, url: `${base}/${url}` },
+      props: { ...block.props, url: resolve(url) },
       ...(children ? { children } : {}),
     }
   })
 }
 
-/** Whether a URL is a path inside the note's own directory. Parsed for a scheme
- * rather than pattern-matched for one, and `..` refused outright. */
+/** Whether a URL is a path this extension stored. Parsed for a scheme rather than
+ * pattern-matched for one, and `..` refused outright. */
 function isRelative(url: unknown): url is string {
   if (typeof url !== "string" || !url || url.startsWith("/")) return false
   if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return false

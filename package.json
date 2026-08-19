@@ -1,8 +1,8 @@
 {
   "name": "anote",
   "displayName": "ANote",
-  "description": "ANote \u2014 a block editor for notes kept as files: a slash menu, tables, and pictures filed beside the note.",
-  "version": "0.1.0",
+  "description": "ANote - Write markdown the way you write in Notion.",
+  "version": "0.1.1",
   "private": true,
   "publisher": "ddev94",
   "license": "MIT",
@@ -192,7 +192,7 @@
     "watch": "node esbuild.mjs --watch",
     "typecheck": "tsc --noEmit",
     "mcp": "node dist/mcp.js",
-    "test": "bun test/config.ts && bun test/preview.ts && bun test/preview-pages.ts && bun test/studio-routes.ts && bun test/note-schema.ts && bun test/note-markdown.ts && bun test/note-format.ts && bun test/mcp.ts",
+    "test": "bun test/config.ts && bun test/note-files.ts && bun test/preview.ts && bun test/preview-pages.ts && bun test/studio-routes.ts && bun test/note-schema.ts && bun test/note-markdown.ts && bun test/note-format.ts && bun test/mcp.ts",
     "package": "bunx @vscode/vsce package --no-dependencies"
   },
   "dependencies": {

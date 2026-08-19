@@ -5,6 +5,8 @@ import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path"
 import {
   CONFIG_FILE,
   DEFAULT_CONFIG,
+  isSharedAssetPath,
+  legacyAssetsDirFor,
   parseConfig,
   type AnoteConfig,
 } from "../config"
@@ -41,13 +43,6 @@ export class Workspace {
     readonly config: AnoteConfig = DEFAULT_CONFIG
   ) {}
 
-  /** The directory a note's own files are in — `assets.dirSuffix` appended to
-   * the note, the same rule the editor writes them by. Takes whichever form of
-   * the note's name the caller has, since it only ever appends. */
-  assetsDir(note: string): string {
-    return `${note}${this.config.assets.dirSuffix}`
-  }
-
   /**
    * A path from a tool call, as an absolute one inside the workspace.
    *
@@ -80,7 +75,8 @@ export class Workspace {
       const entries = await readdir(directory, { withFileTypes: true })
       for (const entry of entries) {
         if (entry.isDirectory()) {
-          // A note's own files, and the directories no note is ever kept in.
+          // The notes' files, and the directories no note is ever kept in.
+          if (entry.name === this.config.assets.dir) continue
           if (entry.name.endsWith(this.config.assets.dirSuffix)) continue
           if (SKIP.has(entry.name) || entry.name.startsWith(".")) continue
           await walk(join(directory, entry.name))
@@ -143,16 +139,104 @@ export class Workspace {
     }
   }
 
-  /** What is in the note's own `<name>.note.assets/` — the pictures, clips and
-   * drawings it points at. */
-  async assets(given: string): Promise<string[]> {
-    const full = this.pathOf(given)
-    try {
-      return (await readdir(this.assetsDir(full))).sort()
-    } catch {
-      return []
+  /**
+   * The files this note points at, as the paths the document holds.
+   *
+   * A listing of the note's blocks rather than of a directory, which is what the
+   * shared assets directory forced and what should have been here anyway: with
+   * one directory for the whole folder, `readdir` would answer a question about
+   * one note with every file every note has ever had. The document is the only
+   * thing that knows which of them are this note's.
+   *
+   * Only what is actually on disk, so the answer is a list of files rather than a
+   * list of claims — a note may well point at a picture somebody has since
+   * deleted, and saying so is the caller's business, not this line's.
+   */
+  async assets(given: string, blocks: NoteBlock[]): Promise<string[]> {
+    const note = this.pathOf(given)
+    const found: string[] = []
+
+    for (const path of this.assetPathsIn(note, blocks)) {
+      const full = this.assetPathOf(note, path)
+      if (!full) continue
+      try {
+        await readFile(full)
+        found.push(path)
+      } catch {
+        // Pointed at and not there, or the other half of a drawing's pair.
+      }
     }
+    return [...new Set(found)].sort()
   }
+
+  /**
+   * Every path a document could be holding a file under.
+   *
+   * Two kinds. A picture, clip or attachment keeps its path in `props.url`, which
+   * is the path itself. A drawing keeps only its `drawingId`, and the two files
+   * behind it — the scene and the picture exported from it — are named after that
+   * id in whichever directory they were written to, so both candidates for both
+   * are offered and `assets` above keeps the ones that exist.
+   */
+  private assetPathsIn(note: string, blocks: NoteBlock[]): string[] {
+    const paths: string[] = []
+    /* Both directories a drawing could be in, *as a document would spell them*:
+       the shared one, and the note's own for a drawing made before that existed.
+       Written this way so every path out of here is relative to the same thing —
+       the note's directory — which is what `assetPathOf` can then resolve without
+       a second rule. */
+    const dirs = [
+      this.config.assets.dir,
+      legacyAssetsDirFor(note.split(sep).pop() ?? "note", this.config),
+    ]
+
+    const walk = (nodes: NoteBlock[]): void => {
+      for (const node of nodes) {
+        const url = node.props?.url
+        if (typeof url === "string" && isStored(url)) paths.push(url)
+
+        const id = node.props?.drawingId
+        if (typeof id === "string" && /^[0-9a-z-]{1,64}$/i.test(id)) {
+          for (const dir of dirs) {
+            paths.push(`${dir}/${id}.excalidraw`, `${dir}/${id}.svg`)
+          }
+        }
+        if (node.children) walk(node.children)
+      }
+    }
+
+    walk(blocks)
+    return paths
+  }
+
+  /**
+   * Where a path a document holds is on disk, or "" for one that leaves the root.
+   *
+   * The same fork the editor and both previews make: a path with the assets
+   * directory's name on the front is relative to the *root*, and one without is
+   * relative to the *note's directory* — which is where a note written before that
+   * directory existed keeps its files, and note that such a path carries its own
+   * `<note>.assets/` on the front already.
+   *
+   * Checked against the root afterwards rather than trusted, because `props.url`
+   * is a string in a file somebody could have written by hand.
+   */
+  private assetPathOf(note: string, path: string): string {
+    const full = resolve(
+      isSharedAssetPath(path, this.config) ? this.root : dirname(note),
+      path
+    )
+    const inside = relative(this.root, full)
+    return !inside || inside.startsWith("..") || isAbsolute(inside) ? "" : full
+  }
+}
+
+/** Whether a URL is a path this extension stored, rather than something the note
+ * merely points at — the same question `note-blocks.ts` asks on the host side. */
+function isStored(url: string): boolean {
+  if (!url || url.startsWith("/")) return false
+  if (/^[a-z][a-z0-9+.-]*:/i.test(url)) return false
+  return !url.split("/").includes("..")
 }
 
 /**

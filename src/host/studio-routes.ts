@@ -105,9 +105,15 @@ export type StudioSettings = {
   theme: PreviewTheme
   /** `notesDir`, shown as the sidebar's heading. */
   root: string
-  /** `assets.dirSuffix` — what a note's own directory is called. The one route
-   * that has to recognise that directory by name is `/files/`. */
+  /** `assets.dir` — the one directory every note's files go in, under the notes
+   * root. The routes that have to recognise it by name are `/files/`, which will
+   * serve nothing else, and `/api/note`, which hands the editor its URL. */
   assets: string
+  /** `assets.dirSuffix` — what a note written before that directory existed
+   * called its *own*. Read only, and only by `/files/`: nothing is written there
+   * any more, and a note whose pictures stopped loading on an upgrade would be a
+   * worse answer than one extra branch. */
+  legacyAssets: string
 }
 
 /**
@@ -145,7 +151,8 @@ export class StudioRoutes {
       pollMs: DEFAULT_CONFIG.preview.pollMs,
       theme: DEFAULT_CONFIG.preview.theme,
       root: DEFAULT_CONFIG.notesDir,
-      assets: DEFAULT_CONFIG.assets.dirSuffix,
+      assets: DEFAULT_CONFIG.assets.dir,
+      legacyAssets: DEFAULT_CONFIG.assets.dirSuffix,
     })
   ) {}
 
@@ -193,8 +200,14 @@ export class StudioRoutes {
     if (!note) return null
 
     const dir = note.split("/").slice(0, -1)
-    const beside = (relative: string) => [...dir, relative].join("/")
-    const assets = `${note.split("/").at(-1) ?? note}${this.settings().assets}`
+    /* Which directory a path out of the document is under. One with the
+       workspace's assets directory on the front is already relative to the notes
+       root, which is what every path this server takes is relative to; one
+       without is relative to the note, and is a note written before that
+       directory existed. */
+    const prefix = `${this.settings().assets}/`
+    const at = (relative: string) =>
+      relative.startsWith(prefix) ? relative : [...dir, relative].join("/")
 
     return {
       name: nameOf(note),
@@ -203,8 +216,8 @@ export class StudioRoutes {
          asked whether it is there, and a page is a read — it reports rather than
          refuses. */
       text: async () => (await this.workspace.read(note)) ?? "",
-      file: (relative) => this.workspace.file(beside(relative)),
-      has: (relative) => this.workspace.exists(beside(relative)),
+      file: (relative) => this.workspace.file(at(relative)),
+      has: (relative) => this.workspace.exists(at(relative)),
       drawingSvg: async (id) => {
         const name = `${id}.svg`
         // The name is built from an id the document holds, so it is checked the
@@ -315,6 +328,10 @@ export class StudioRoutes {
            studio's answer to `asWebviewUri`. A note at the root of the folder
            gets `/files`, and the join in `editor.tsx` adds the slash. */
         dirUrl: `/${[FILES, ...path.split("/").slice(0, -1)].join("/")}`,
+        /* The other half of that fork: the workspace's assets directory, which is
+           at the notes root and so is the same URL for every note. */
+        assetsUrl: `/${FILES}/${this.settings().assets}`,
+        assetsDir: this.settings().assets,
       } satisfies NoteResult,
       version
     )
@@ -479,24 +496,30 @@ export class StudioRoutes {
   /**
    * `/files/…` — the pictures, clips and PDFs the note points at.
    *
-   * **Only what is inside some note's own assets directory**, and that is the whole
-   * of what this route will serve. The notes root defaults to the workspace folder
-   * itself, so "any file under the root" would have been this extension serving a
+   * **Only what is inside an assets directory**, and that is the whole of what
+   * this route will serve. The notes root defaults to the workspace folder itself,
+   * so "any file under the root" would have been this extension serving a
    * repository over a socket — the thing a note's page refuses by never
    * turning a URL into a path at all. Here a path is unavoidable, because the
    * editor resolves relative URLs against a directory, so it is checked instead:
-   * the segment holding the file has to be a `<note>.assets` directory.
+   * the segment holding the file has to be the workspace's assets directory, or a
+   * `<note>.assets` one belonging to a note written before that existed.
    */
   async files(
     request: IncomingMessage,
     response: ServerResponse,
     given: string
   ): Promise<void> {
-    const suffix = this.settings().assets
+    const { assets, legacyAssets } = this.settings()
     const path = normalPath(given)
     const parts = path.split("/")
     const parent = parts.at(-2)
-    if (parts.length < 2 || !parent?.endsWith(suffix) || parent === suffix) {
+    const inAssets =
+      parent === assets ||
+      (parent !== undefined &&
+        parent.endsWith(legacyAssets) &&
+        parent !== legacyAssets)
+    if (parts.length < 2 || !inAssets) {
       return send(request, response, 404, "Not found")
     }
 

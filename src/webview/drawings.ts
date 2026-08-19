@@ -4,9 +4,11 @@ import { readAsset, writeAsset } from "./bridge"
  * The drawings a note's blocks point at.
  *
  * A port of the app's `lib/note/drawings.ts`, with one change: there a scene lives
- * in `workspace/drawings/<id>.excalidraw` and is read over IPC, here it lives in
- * `<note>.assets/<id>.excalidraw` — beside the note, like its pictures, so a note
- * and its diagrams are committed, moved and deleted together.
+ * in `workspace/drawings/<id>.excalidraw` and is read over IPC, here it is
+ * `<id>.excalidraw` in the workspace's assets directory, like the pictures. This
+ * side names the file and the host decides where it goes — `locateAsset` in
+ * `host/assets.ts` — so a drawing made before that directory existed goes on being
+ * read and written beside its own note.
  *
  * Not a store with a framework behind it, for the app's own reason: a drawing is
  * opened from a block and from the slash menu, and both of those raise an event

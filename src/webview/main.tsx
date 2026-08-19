@@ -62,6 +62,8 @@ function App() {
     generation: number
     blocks: NoteBlock[]
     dirUri: string
+    assetsUri: string
+    assetsDir: string
     /** Which file these blocks came out of. The host converts a `.md` in both
      * directions, so what arrives here is blocks either way — this is only what
      * the editor takes features away for. */
@@ -87,6 +89,8 @@ function App() {
             generation: 0,
             blocks: parse(message.text),
             dirUri: message.dirUri,
+            assetsUri: message.assetsUri,
+            assetsDir: message.assetsDir,
             format: message.format,
           })
 
@@ -131,6 +135,8 @@ function App() {
         key={loaded.generation}
         initial={loaded.blocks}
         dirUri={loaded.dirUri}
+        assetsUri={loaded.assetsUri}
+        assetsDir={loaded.assetsDir}
         format={loaded.format}
         theme={theme}
         onChange={(blocks) => {

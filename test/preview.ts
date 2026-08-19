@@ -27,6 +27,8 @@ function check(what: string, ok: boolean, detail?: unknown) {
 }
 
 const BASE = "https://file+.vscode-resource.vscode-cdn.net/notes"
+const ASSETS =
+  "https://file+.vscode-resource.vscode-cdn.net/notes/anote.assets"
 
 const BLOCKS: NoteBlock[] = [
   {
@@ -47,7 +49,8 @@ const BLOCKS: NoteBlock[] = [
       },
     ],
   },
-  // A picture this extension stored: a path relative to the note's directory.
+  // A picture in a note written before the shared assets directory: a path
+  // relative to the note's own.
   {
     type: "image",
     props: { url: "spec.note.assets/shape.png", name: "shape.png" },
@@ -57,6 +60,12 @@ const BLOCKS: NoteBlock[] = [
   // A document that names a file outside its own directory. It is a file on
   // disk and could say anything, so this is the one that must not resolve.
   { type: "image", props: { url: "../../.ssh/id_rsa", caption: "no" } },
+  /* A picture dropped in since: in the workspace's assets directory, under the
+     name the file arrived with — which is a filename and not a URL. */
+  {
+    type: "image",
+    props: { url: "anote.assets/báo cáo.png", name: "báo cáo.png" },
+  },
   {
     type: "paragraph",
     content: [{ type: "text", text: "<script>alert(1)</script>", styles: {} }],
@@ -101,7 +110,15 @@ const BLOCKS: NoteBlock[] = [
 ]
 
 console.log("\n# the document, resolved")
-const resolved = withResolvedUrls(BLOCKS, BASE)
+/* The resolver the preview builds, in miniature: a path with the workspace's
+   assets directory on the front is relative to the notes root, and anything else
+   is relative to the note. Escaped, because a stored name is the name the file
+   arrived with. */
+const resolve = (path: string) =>
+  path.startsWith("anote.assets/")
+    ? `${ASSETS}/${encodeURI(path.slice("anote.assets/".length))}`
+    : `${BASE}/${encodeURI(path)}`
+const resolved = withResolvedUrls(BLOCKS, resolve)
 check(
   "a stored picture becomes a URL the webview can load",
   resolved[2]?.props?.url === `${BASE}/spec.note.assets/shape.png`,
@@ -115,6 +132,11 @@ check(
   "a path climbing out of the note's directory is not resolved",
   resolved[4]?.props?.url === "../../.ssh/id_rsa",
   resolved[4]?.props?.url
+)
+check(
+  "a picture in the workspace's assets directory resolves against that one",
+  resolved[5]?.props?.url === `${ASSETS}/b%C3%A1o%20c%C3%A1o.png`,
+  resolved[5]?.props?.url
 )
 check(
   "and the document it was handed is untouched",

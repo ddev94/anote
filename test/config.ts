@@ -2,6 +2,8 @@ import { readFileSync } from "node:fs"
 
 import {
   assetsDirFor,
+  isSharedAssetPath,
+  legacyAssetsDirFor,
   CONFIG_FILE,
   DEFAULT_CONFIG,
   parseConfig,
@@ -17,11 +19,12 @@ import {
  *
  * The first half is the whole reason `parseConfig` returns problems rather than
  * throwing — a value that does not check out is replaced and reported, and the
- * extension activates on the rest of the file. The second is `notesDir` and
- * `assets.dirSuffix`, which are the two settings that become *paths*: one is a
- * folder new notes are written into and the root an agent is handed, and the
- * other is joined onto a filename. Both are checked here rather than at the
- * call sites, which is why the call sites can join them without thinking.
+ * extension activates on the rest of the file. The second is `notesDir`,
+ * `assets.dir` and `assets.dirSuffix`, which are the three settings that become
+ * *paths*: a folder new notes are written into and the root an agent is handed,
+ * a directory joined onto that root, and a suffix joined onto a filename. All
+ * three are checked here rather than at the call sites, which is why the call
+ * sites can join them without thinking.
  *
  * Plain asserts and a count, in the style of the tests beside it.
  */
@@ -63,7 +66,7 @@ console.log("\na workspace that has")
   const { config, problems } = parseConfig({
     notesDir: "docs/notes",
     newNote: { defaultName: "Note" },
-    assets: { dirSuffix: "_files" },
+    assets: { dir: "media", dirSuffix: "_files" },
     preview: { theme: "dark", pollMs: 500, port: 4321 },
     mcp: { enabled: false },
   })
@@ -74,6 +77,7 @@ console.log("\na workspace that has")
   )
   check("notesDir", config.notesDir === "docs/notes", config.notesDir)
   check("newNote.defaultName", config.newNote.defaultName === "Note")
+  check("assets.dir", config.assets.dir === "media", config.assets.dir)
   check("assets.dirSuffix", config.assets.dirSuffix === "_files")
   check("preview.theme", config.preview.theme === "dark")
   check("preview.pollMs", config.preview.pollMs === 500)
@@ -145,19 +149,54 @@ for (const suffix of ["../x", "a/b", "a\\b", "", "x".repeat(33)]) {
 }
 
 check(
-  "so the directory a note's files go in is always one segment",
-  !assetsDirFor(
+  "so the directory an older note's files are read from is always one segment",
+  !legacyAssetsDirFor(
     "Spec.note",
     parseConfig({ assets: { dirSuffix: "../../etc" } }).config
   ).includes("/"),
-  assetsDirFor(
+  legacyAssetsDirFor(
     "Spec.note",
     parseConfig({ assets: { dirSuffix: "../../etc" } }).config
   )
 )
 check(
   "and it is the note's own filename with the suffix on it",
-  assetsDirFor("Spec.note", DEFAULT_CONFIG) === "Spec.note.assets"
+  legacyAssetsDirFor("Spec.note", DEFAULT_CONFIG) === "Spec.note.assets"
+)
+
+for (const dir of ["../x", "a/b", "a\\b", "", ".", "..", "x".repeat(65)]) {
+  const { config, problems } = parseConfig({ assets: { dir } })
+  check(
+    `assets.dir ${JSON.stringify(dir)} is refused`,
+    config.assets.dir === DEFAULT_CONFIG.assets.dir && problems.length === 1,
+    problems.join(" ")
+  )
+}
+
+check(
+  "so the directory every note's files go in is always one segment",
+  !assetsDirFor(parseConfig({ assets: { dir: "../../etc" } }).config).includes(
+    "/"
+  ),
+  assetsDirFor(parseConfig({ assets: { dir: "../../etc" } }).config)
+)
+check(
+  "and by default it is anote.assets, under the notes root",
+  assetsDirFor(DEFAULT_CONFIG) === "anote.assets"
+)
+
+check(
+  "a path in that directory is recognised by its prefix",
+  isSharedAssetPath("anote.assets/diagram.png", DEFAULT_CONFIG)
+)
+check(
+  "an older note's path is not, so it goes on resolving against the note",
+  !isSharedAssetPath("Spec.note.assets/diagram.png", DEFAULT_CONFIG)
+)
+check(
+  "and neither is a note whose own directory merely starts with that name",
+  !isSharedAssetPath("anote.assets.note.assets/diagram.png", DEFAULT_CONFIG),
+  "the slash in the prefix is what tells them apart"
 )
 
 console.log("\nthe file shipped beside the schema agrees with the schema")

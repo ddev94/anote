@@ -5,6 +5,7 @@
     "defaultName": "Untitled"
   },
   "assets": {
+    "dir": "anote.assets",
     "dirSuffix": ".assets"
   },
   "preview": {

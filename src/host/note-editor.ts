@@ -3,8 +3,9 @@ import * as vscode from "vscode"
 
 import { assetsDirFor, type AnoteConfig } from "../config"
 import type { NoteFormat, ToHost, ToWebview } from "../protocol"
+import { assetsRootFor, locateAsset, storeAsset } from "./assets"
 import type { Configs } from "./config"
-import { extensionFor, isAssetName } from "./note-files"
+import { assetFilenameFor, isAssetName } from "./note-files"
 import {
   blocksTextOf,
   documentTextOf,
@@ -80,15 +81,23 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
       path: document.uri.path.slice(0, document.uri.path.lastIndexOf("/")),
     })
 
+    const assets = assetsRootFor(document.uri, this.configs)
+
     panel.webview.options = {
       enableScripts: true,
       /*
-       * Two roots and no more: this extension's own bundle, and the directory
-       * the note is in — which is what a picture in it is relative to. A webview
-       * may load nothing else off the disk, so a note that names
+       * Three roots and no more: this extension's own bundle, the shared assets
+       * directory a picture dropped into a note goes in, and the directory the
+       * note is in — which is what a picture in an older note is relative to. A
+       * webview may load nothing else off the disk, so a note that names
        * `../../.ssh/id_rsa` gets a blocked request rather than a picture.
+       *
+       * The pool itself rather than the notes root above it, which is the whole
+       * point of the name being on the front of the stored path: the root defaults
+       * to the workspace folder, and a root here would be this extension handing a
+       * webview the repository.
        */
-      localResourceRoots: [this.context.extensionUri, dir],
+      localResourceRoots: [this.context.extensionUri, dir, assets],
     }
     panel.webview.html = this.html(panel.webview)
     this.panels.set(document.uri.toString(), panel)
@@ -131,6 +140,8 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
               type: "init",
               text: blocksTextOf(document.getText(), format),
               dirUri: panel.webview.asWebviewUri(dir).toString(),
+              assetsUri: panel.webview.asWebviewUri(assets).toString(),
+              assetsDir: assetsDirFor(this.configFor(document)),
               theme: themeOf(vscode.window.activeColorTheme),
               format,
             })
@@ -163,11 +174,7 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
             return void (await this.upload(panel, document, message))
 
           case "writeAsset": {
-            const target = assetUri(
-              document,
-              message.name,
-              this.configFor(document)
-            )
+            const target = await this.assetUri(document, message.name)
             if (!target) {
               return void post(panel, {
                 type: "assetWritten",
@@ -176,6 +183,15 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
               })
             }
             try {
+              /* The directory first: a drawing may well be the first thing
+                 anything writes into a workspace's assets directory, and
+                 `writeFile` only makes parents once the one above them is
+                 there. */
+              await vscode.workspace.fs.createDirectory(
+                target.with({
+                  path: target.path.slice(0, target.path.lastIndexOf("/")),
+                })
+              )
               await vscode.workspace.fs.writeFile(
                 target,
                 Buffer.from(message.base64, "base64")
@@ -194,11 +210,7 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
           }
 
           case "readAsset": {
-            const source = assetUri(
-              document,
-              message.name,
-              this.configFor(document)
-            )
+            const source = await this.assetUri(document, message.name)
             let base64: string | null = null
             try {
               if (source) {
@@ -268,21 +280,20 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
   }
 
   /**
-   * Writes a dropped file beside the note and hands back the path the document
-   * will hold.
+   * Writes a dropped file into the workspace's assets directory and hands back
+   * the path the document will hold.
    *
-   * `<note name>.assets/`, next to the note, rather than one directory for the
-   * whole workspace: a note and its pictures move, get committed and get deleted
-   * together, and a flat pool would leave files behind belonging to notes nobody
-   * can name. It is also what the markdown editors people already use do, so the
-   * result reads as an ordinary directory of files rather than as this
-   * extension's private store. The `.assets` half of that name is
-   * `assets.dirSuffix` in `anote.config.json`, for the workspace that keeps its
-   * files under some other convention.
+   * One directory at the notes root, shared by every note in the folder, and
+   * named `assets.dir` in `anote.config.json`. Why that rather than a directory
+   * per note — and how the per-note ones this extension used to write go on being
+   * read — is the header of `host/assets.ts`.
    *
-   * The name is a fresh UUID plus an extension taken from the browser's own idea
-   * of the type, so nothing the user's filesystem named reaches a path of ours,
-   * and two pictures dropped from two folders cannot be one file.
+   * **The file keeps its own name.** The extension comes from the browser's idea
+   * of the type, because that is what the bytes actually are, and the stem is the
+   * name the file arrived with, with anything a path or a URL would argue about
+   * taken out of it (`assetFilenameFor`). A name that is already taken is
+   * answered by `storeAsset`: the same bytes reuse the file, different bytes get
+   * `-1`, and nothing is ever overwritten.
    */
   private async upload(
     panel: vscode.WebviewPanel,
@@ -290,25 +301,17 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
     message: Extract<ToHost, { type: "uploadFile" }>
   ): Promise<void> {
     try {
-      const noteName = document.uri.path.split("/").pop() ?? "note"
-      const assets = assetsDirFor(noteName, this.configFor(document))
-      const target = vscode.Uri.joinPath(
-        document.uri.with({
-          path: document.uri.path.slice(0, document.uri.path.lastIndexOf("/")),
-        }),
-        assets,
-        `${randomUUID()}.${extensionFor(message.name, message.mime)}`
-      )
-
-      await vscode.workspace.fs.writeFile(
-        target,
+      const dir = assetsDirFor(this.configFor(document))
+      const stored = await storeAsset(
+        assetsRootFor(document.uri, this.configs),
+        assetFilenameFor(message.name, message.mime),
         Buffer.from(message.base64, "base64")
       )
       await post(panel, {
         type: "uploaded",
         id: message.id,
-        // Relative and POSIX, which is what the document keeps.
-        path: `${assets}/${target.path.split("/").pop()}`,
+        // Relative to the notes root and POSIX, which is what the document keeps.
+        path: `${dir}/${stored}`,
       })
     } catch (error) {
       await post(panel, {
@@ -317,9 +320,26 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
         message:
           error instanceof Error
             ? error.message
-            : "Could not save that file beside the note.",
+            : "Could not save that file with the note's.",
       })
     }
+  }
+
+  /**
+   * Where a name the webview chose lands, or null if it is not a name.
+   *
+   * The check itself is `isAssetName` in `note-files.ts` — the studio's server
+   * holds the same door for the same two calls arriving over a socket, and a rule
+   * like this is only worth anything while both spellings of it agree. Where the
+   * file goes is `locateAsset`: wherever it already is, and the shared directory
+   * for one nothing has written yet.
+   */
+  private async assetUri(
+    document: vscode.TextDocument,
+    name: string
+  ): Promise<vscode.Uri | null> {
+    if (!isAssetName(name)) return null
+    return await locateAsset(document.uri, this.configs, name)
   }
 
   /**
@@ -360,32 +380,6 @@ export class NoteEditorProvider implements vscode.CustomTextEditorProvider {
 </body>
 </html>`
   }
-}
-
-/**
- * Where a name the webview chose lands, or null if it is not a name.
- *
- * The check itself is `isAssetName` in `note-files.ts` — the studio's server holds
- * the same door for the same two calls arriving over a socket, and a rule like this
- * is only worth anything while both spellings of it agree.
- */
-function assetUri(
-  document: vscode.TextDocument,
-  name: string,
-  config: AnoteConfig
-): vscode.Uri | null {
-  if (!isAssetName(name)) return null
-
-  const noteName = document.uri.path.split("/").pop() ?? "note"
-  return vscode.Uri.joinPath(
-    document.uri.with({
-      path: document.uri.path.slice(0, document.uri.path.lastIndexOf("/")),
-    }),
-    // `assets.dirSuffix` is checked when the config is read — letters, digits,
-    // dot, dash and underscore, and no separators — so this stays one segment.
-    assetsDirFor(noteName, config),
-    name
-  )
 }
 
 function themeOf(theme: vscode.ColorTheme): "dark" | "light" {

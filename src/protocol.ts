@@ -54,14 +54,35 @@ export type ToWebview =
       /**
        * The note's own directory, as a URI the webview may load from.
        *
-       * A picture in a note is stored as a path relative to this, so the
-       * document stays portable: the note and its `<name>.assets/` directory
-       * move together, and what is written down is the same string on any
-       * machine. The webview cannot turn a file path into something it may
-       * fetch, so the host resolves the directory once and the webview joins
-       * names onto it.
+       * **The legacy base.** Notes written before the shared pool existed hold
+       * paths relative to the note itself — `Spec.note.assets/<file>` — and this
+       * is what those resolve against. Still sent, and still first in the
+       * webview's fork, because a note's pictures going blank on an upgrade is
+       * not a trade this extension gets to make.
        */
       dirUri: string
+      /**
+       * The shared assets directory, as a URI the webview may load from.
+       *
+       * Where a dropped file goes now: one directory at the notes root, shared by
+       * every note in the folder, so a note may be renamed and moved without its
+       * pictures being left behind under a name derived from its old filename.
+       * See the header of `host/assets.ts`.
+       *
+       * The webview cannot turn a file path into something it may fetch, so the
+       * host resolves both directories once and the webview joins names onto
+       * whichever the path names.
+       */
+      assetsUri: string
+      /**
+       * What that directory is called — `assets.dir`, and the prefix a stored
+       * path carries.
+       *
+       * Sent rather than assumed, because it is a workspace setting: the webview
+       * has to know which of the two URIs above a path belongs to, and the answer
+       * is whether it starts with this.
+       */
+      assetsDir: string
       theme: "dark" | "light"
       /** The file this note is kept in. Sent once, because a document does not
        * change extension while it is open. */
@@ -117,10 +138,12 @@ export type ToHost =
    * A file beside the note, by a name the webview chose — a drawing's scene, and
    * the picture of it exported for the previews.
    *
-   * Separate from `uploadFile`, where the host invents the name: a drawing is
+   * Separate from `uploadFile`, where the host names the file: a drawing is
    * written repeatedly under a name the document already holds, so the webview has
-   * to be the one that says which file. Both land in the same `<note>.assets/`
-   * directory, and the host refuses a name that would leave it.
+   * to be the one that says which file. The host refuses a name that is not one of
+   * ours and resolves it itself — to wherever that file already is, and to the
+   * shared pool for one nothing has written yet (`locateAsset` in
+   * `host/assets.ts`).
    */
   | { type: "writeAsset"; id: number; name: string; base64: string }
   | { type: "readAsset"; id: number; name: string }

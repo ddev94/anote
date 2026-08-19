@@ -11,6 +11,7 @@ import {
   defaultBlockSpecs,
   defaultStyleSpecs,
   filterSuggestionItems,
+  SideMenuExtension,
 } from "@blocknote/core"
 import {
   BasicTextStyleButton,
@@ -26,6 +27,7 @@ import {
   getFormattingToolbarItems,
   useCreateBlockNote,
   useDictionary,
+  useExtensionState,
 } from "@blocknote/react"
 import { BlockNoteView } from "@blocknote/mantine"
 
@@ -290,6 +292,170 @@ function MarkdownDragHandleMenu(): ReactElement {
   )
 }
 
+/**
+ * The side menu — the `+` and the drag handle — beside the line it belongs to.
+ *
+ * BlockNote hangs the menu off the *top* of the hovered block (`left-start`) and
+ * then pushes it down by a constant to land on the middle of the block's first
+ * line. The constant is a table of literals in `SideMenuController`, and every
+ * number in it is read off BlockNote's own stylesheet: `18px` of heading padding
+ * plus half a `line-height: 1.5` line of a `3em` h1, less half the menu — 39 for
+ * an h1, 27 for an h2, 18.5 for an h3, 0 for a paragraph.
+ *
+ * `theme.css` sets a different scale (an h1 is 1.875em on 1.3, and a block's
+ * padding is 2px rather than 18), so those literals overshoot by about 32px on an
+ * h1 — far enough that the handle appears beside the *next* block and reads as
+ * having latched onto the wrong one. That is the bug this fixes: nothing was
+ * mis-targeted, the menu was simply shoved past its heading.
+ *
+ * The middleware below replaces the table with the measurement the table is a
+ * cached answer to, so the scale stays a thing only the stylesheet decides.
+ */
+function NoteSideMenu({
+  editor,
+  markdown,
+}: {
+  editor: Editor
+  markdown: boolean
+}) {
+  const blockId = useExtensionState(SideMenuExtension, {
+    selector: (state) => state?.block.id as string | undefined,
+  })
+
+  /* Memoised because `@floating-ui/react` compares the middleware array against
+     the last one to decide whether to reposition, and a fresh `fn` on every
+     render never matches. */
+  const floatingUIOptions = useMemo(
+    () => ({
+      useFloatingOptions: {
+        middleware: [
+          {
+            name: "note-first-line",
+            fn: ({
+              y,
+              rects,
+            }: {
+              y: number
+              rects: { floating: { height: number } }
+            }) => {
+              const middle = firstLineMiddle(editor, blockId)
+              return middle === undefined
+                ? {}
+                : { y: y + middle - rects.floating.height / 2 }
+            },
+          },
+        ],
+      },
+    }),
+    [editor, blockId]
+  )
+
+  return (
+    <SideMenuController
+      floatingUIOptions={floatingUIOptions}
+      sideMenu={
+        markdown
+          ? () => <SideMenu dragHandleMenu={MarkdownDragHandleMenu} />
+          : undefined
+      }
+    />
+  )
+}
+
+/**
+ * How far below a block's top its first line reads as centred, in pixels.
+ *
+ * **Not the middle of the line box**, which is where the arithmetic lands and
+ * where it looks wrong. A line box is half-leading, then the font's ascent, then
+ * its descent — and the ascent is the taller half, because it has to hold accents
+ * over capitals that most lines never use. So the box's middle sits above the ink
+ * of the words in it, and a handle centred on the box reads as riding high: about
+ * 3px on a 30px heading, which is exactly the amount that still looked off after
+ * the first fix.
+ *
+ * What the eye centres on instead is the x-height band — the body of the lowercase
+ * letters, which is also within a hair of the middle of the ink of ordinary
+ * mixed-case text, descenders and all. So: find the baseline, and go up half an x.
+ *
+ * The metrics come from the font itself, through a canvas — `measureText` reports
+ * the same ascent and descent the line box was built from, and the ink height of
+ * an `x` is the x-height. Nothing here is a number chosen by eye, which is the
+ * point: the scale is still `theme.css`'s to change.
+ *
+ * `undefined` when the computed styles cannot answer — a block that has left the
+ * document mid-hover, or a `line-height: normal` — and the caller then leaves
+ * BlockNote's own placement alone. The first `.bn-block-content` under the block
+ * is the block's own: a block's children live in a `.bn-block-group` *after* the
+ * content it drew itself.
+ */
+function firstLineMiddle(
+  editor: Editor,
+  blockId: string | undefined
+): number | undefined {
+  if (!blockId) return undefined
+  const content = editor.domElement?.querySelector(
+    `.bn-block[data-id="${blockId}"] .bn-block-content`
+  )
+  if (!content) return undefined
+
+  const style = getComputedStyle(content)
+  const line = parseFloat(style.lineHeight)
+  const padding = parseFloat(style.paddingTop)
+  if (!Number.isFinite(line) || !Number.isFinite(padding)) return undefined
+
+  const font = fontMetrics(style)
+  // Half the line box is the honest fallback: it is where the text is, give or
+  // take the leading the metrics would have told us about.
+  if (!font) return padding + line / 2
+
+  const leading = (line - (font.ascent + font.descent)) / 2
+  const baseline = padding + leading + font.ascent
+  return baseline - font.xHeight / 2
+}
+
+/** One canvas for the life of the webview — a note holds two or three fonts and
+ * a hover asks about one of them. */
+let measuring: CanvasRenderingContext2D | null | undefined
+const metricsByFont = new Map<
+  string,
+  { ascent: number; descent: number; xHeight: number } | undefined
+>()
+
+/**
+ * A font's ascent, descent and x-height, as the browser resolved it.
+ *
+ * `measureText` is the only way to ask: the metrics are the font's, not the
+ * stylesheet's, and the stack in `--note-font` ends somewhere different on every
+ * platform. `undefined` when the shorthand does not survive the round trip
+ * through `ctx.font` — a family name a canvas will not parse leaves it at its own
+ * `10px sans-serif`, and metrics for that font would be a wrong answer rather
+ * than no answer.
+ */
+function fontMetrics(style: CSSStyleDeclaration) {
+  const font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`
+  if (metricsByFont.has(font)) return metricsByFont.get(font)
+
+  measuring ??= document.createElement("canvas").getContext("2d")
+  const ctx = measuring
+  let metrics
+  if (ctx) {
+    ctx.font = font
+    if (ctx.font.includes(style.fontSize)) {
+      const m = ctx.measureText("x")
+      const [ascent, descent, xHeight] = [
+        m.fontBoundingBoxAscent,
+        m.fontBoundingBoxDescent,
+        m.actualBoundingBoxAscent,
+      ]
+      if ([ascent, descent, xHeight].every((n) => Number.isFinite(n) && n > 0)) {
+        metrics = { ascent, descent, xHeight }
+      }
+    }
+  }
+  metricsByFont.set(font, metrics)
+  return metrics
+}
+
 /** The `/tab` item's mark — lucide's `columns-3`, inlined for the same reason
  * the drawing's is: one glyph is not a reason for an icon library. */
 const TabsIcon = () => (
@@ -331,6 +497,8 @@ export function NoteEditor({
   initial,
   theme,
   dirUri,
+  assetsUri,
+  assetsDir,
   format,
   onChange,
 }: {
@@ -338,8 +506,15 @@ export function NoteEditor({
    * the component above keys on the document to replace it. */
   initial: NoteBlock[]
   theme: "dark" | "light"
-  /** The note's own directory, as a URL the webview may load from. */
+  /** The note's own directory, as a URL the webview may load from — what a note
+   * written before the shared assets directory resolves its pictures against. */
   dirUri: string
+  /** The shared assets directory, as a URL the webview may load from. Where a
+   * file dropped into a note goes now. */
+  assetsUri: string
+  /** What that directory is called, which is the prefix a path stored in it
+   * carries — how `resolve` below tells the two apart. */
+  assetsDir: string
   /** Which file these blocks are kept in, and so how much of the editor there
    * is. See `markdownSchema` above. */
   format: NoteFormat
@@ -356,14 +531,33 @@ export function NoteEditor({
 
   const resolve = useCallback(
     async (url: string) => {
-      // Only what this extension wrote: a picture's path is relative to the note.
-      // Anything with a scheme of its own — an image embedded from the web, a
-      // `data:` URL pasted out of a browser — is already loadable and is left
-      // exactly as it is.
+      // Only what this extension wrote. Anything with a scheme of its own — an
+      // image embedded from the web, a `data:` URL pasted out of a browser — is
+      // already loadable and is left exactly as it is.
       if (!url || /^[a-z][a-z0-9+.-]*:/i.test(url)) return url
-      return `${dirUri}/${url}`
+
+      /*
+       * Two bases, and which one a path belongs to is written on the front of it.
+       * A file dropped into a note now goes in one directory at the notes root,
+       * so its path starts with that directory's name; a note written before that
+       * holds a path relative to the note itself. Both resolve, which is what
+       * keeps an older note's pictures on the page.
+       */
+      const prefix = `${assetsDir}/`
+      const [base, path] = url.startsWith(prefix)
+        ? [assetsUri, url.slice(prefix.length)]
+        : [dirUri, url]
+
+      /*
+       * Escaped, because a stored name is now the name the file arrived with:
+       * `báo cáo.pdf` is a perfectly good filename and not a URL. `encodeURI`
+       * rather than `encodeURIComponent` — the path may hold a `/` and those are
+       * the one thing that must survive. Already-escaped bases are left alone
+       * because only the tail goes through it.
+       */
+      return `${base}/${encodeURI(path)}`
     },
-    [dirUri]
+    [dirUri, assetsUri, assetsDir]
   )
 
   const editor = useCreateBlockNote(
@@ -458,10 +652,11 @@ export function NoteEditor({
         // either of them arriving in a second menu of its own.
         slashMenu={false}
         formattingToolbar={false}
-        // The drag handle's own menu is replaced for a markdown file, and only
-        // there: its **Colors** submenu is the second way into the block props
-        // the toolbar's colour button sets.
-        sideMenu={markdown ? false : undefined}
+        // Replaced below for both files, by the one that knows this
+        // stylesheet's heading scale — see `NoteSideMenu`. Only the markdown
+        // one also replaces the handle's *menu*: its **Colors** submenu is the
+        // second way into the block props the toolbar's colour button sets.
+        sideMenu={false}
         // Unfolded on the way out, so what reaches the document is the note's own
         // blocks and never this schema's stand-in for one.
         onChange={() =>
@@ -474,11 +669,7 @@ export function NoteEditor({
           )}
         />
 
-        {markdown ? (
-          <SideMenuController
-            sideMenu={() => <SideMenu dragHandleMenu={MarkdownDragHandleMenu} />}
-          />
-        ) : null}
+        <NoteSideMenu editor={editor} markdown={markdown} />
 
         <SuggestionMenuController
           triggerCharacter="/"
